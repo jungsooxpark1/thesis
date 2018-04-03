@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style/styles2.css" type="text/css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet"> 
+</head>
+<body>
+
+<canvas id="canvas" style="display:none;"></canvas>
+<button id="take"></button><br/>
+<video id="v"></video>
+<img src="http://placehold.it/300&text=Your%20image%20here%20..." id="photo" alt="photo">
+
+<script>
+    ;(function(){
+        function userMedia(){
+            return navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia || null;
+
+        }
+
+
+        // Now we can use it
+        if( userMedia() ){
+            var videoPlaying = false;
+            var constraints = {
+                video: {
+                width: 375, height: 667
+            },
+            audio: true
+            };
+            var video = document.getElementById('v');
+
+            var media = navigator.getUserMedia(constraints, function(stream){
+
+                // URL Object is different in WebKit
+                var url = window.URL || window.webkitURL;
+
+                // create the url and set the source of the video element
+                video.src = url ? url.createObjectURL(stream) : stream;
+
+                // Start the video
+                video.play();
+                videoPlaying  = true;
+            }, function(error){
+                console.log("ERROR");
+                console.log(error);
+            });
+
+
+            // Listen for user click on the "take a photo" button
+            document.getElementById('take').addEventListener('click', function(){
+                if (videoPlaying){
+                    var canvas = document.getElementById('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    canvas.getContext('2d').drawImage(video, 0, 0);
+                    var data = canvas.toDataURL('image/webp');
+                    document.getElementById('photo').setAttribute('src', data);
+                }
+            }, false);
+
+
+
+        } else {
+            console.log("KO");
+        }
+    })();
+</script>
+</body>
+</html>

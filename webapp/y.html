@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>One Roof2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+</head>    
+<body> 
+    <div class="booth">
+        <video id="vid" autoplay></video>
+
+        <!-- <video id="my_video" width="640" height="480"></video> -->
+        <!-- <a href="#" id="capture" class="booth_btn">RECORD</a> -->
+        <!-- <canvas id="canvas" width="640" height="480"></canvas> -->
+        <input type="button" value="RECORD" onClick="enter()"/>
+        <!-- <input type="button" value="SAVE" />  -->
+    </div> 
+     
+
+    <script type="text/javascript">
+    navigator.mediaDevices.getUserMedia({
+        video: {
+            width: 375, height: 667
+        },
+        audio: true
+    })
+    .then(stream => {
+        document.getElementById("vid").srcObject = stream;                
+    })
+    
+    </script>  
+
+
+<!--    <script type="text/javascript">
+
+        (function() {
+
+                var video = document.getElementById("my_video"),
+                    canvas = document.getElementById("canvas"),
+                    context = canvas.getContext("2d"),
+                // photo = document.getElementById("photo"),
+                    vendorUrl = window.URL || window.webkitURL;
+
+                navigator.getMedia = navigator.getUserMedia ||
+                                     navigator.webkitGetUserMedia ||
+                                     navigator.mozGetUserMedia ||
+                                     navigator.msGetUserMedia;
+
+                navigator.getMedia({
+                    video: true,
+                    audio: false
+                }, function(stream) {
+                    video.src = vendorUrl.createObjectURL(stream);
+                    video.play();
+                }, function (error) {
+                    alert("error");
+                });                    
+                
+                document.getElementById("capture").addEventListener('click', function() {
+                    context.drawImage(video, 0, 0, 400, 300);
+                    photo.setAttribute('src', canvas.toDataURL("imgs/png"));
+                });
+
+            })();  
+
+        </script>   -->
+    
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>One Roof</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="style/styles.css"> -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<!-- <img class="fam" src="imgs/fam1.png" style="width:100%;"> -->
+		<!-- <input class="fam1" type="file" accept="video/*;capture=camcorder" style="width:100%;"> -->
+		<video autoplay></video>
+		<img src="">
+		<canvas style="display:none;"></canvas>
+		<!-- <img src="imgs/a.svg" style="width:20px;"> -->
+		<img class="top-x2" src="imgs/w5.png">
+		<svg class="top-x" width="10vw" height="10vw" viewBox="0 0 36 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+		    <!-- <desc>Created with Sketch.</desc> -->
+		    <defs></defs>
+		    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		        <g id="Artboard" transform="translate(-2.000000, -3.000000)" fill-rule="nonzero" stroke="#FFFFFF" stroke-width="2">
+		            <g id="ic_favorite_border_white_48px" transform="translate(-0.015625, 2.500000)">
+		                <path d="M27.5,1.66666667 C24.6,1.66666667 21.8166667,3.01666667 20,5.15 C18.1833333,3.01666667 15.4,1.66666667 12.5,1.66666667 C7.36666667,1.66666667 3.33333333,5.7 3.33333333,10.8333333 C3.33333333,17.1333333 9,22.2666667 17.5833333,30.0666667 L20,32.25 L22.4166667,30.05 C31,22.2666667 36.6666667,17.1333333 36.6666667,10.8333333 C36.6666667,5.7 32.6333333,1.66666667 27.5,1.66666667 Z" id="Shape"></path>
+		            </g>
+		        </g>
+		    </g>
+		</svg>
+		<div id="time" class="top-centered"><span id="clockbox"></span></div>  
+		<!-- <div id="time2" class="top-mid">SEOUL</div> -->
+		<!-- <span id="clockbox2" class="top-top"></span> -->
+		<!-- <span id="clockbox3" class="top-top2"></span> -->
+		<div id="quest" class="top-xxx"><i>Share today's happiest moment with family</i></div>
+		<!-- <input type="file" accept="video/*;capture=camcorder"> --> 
+	</div>
+
+	<script>
+	  var video = document.querySelector('video');
+	  var canvas = document.querySelector('canvas');
+	  var ctx = canvas.getContext('2d');
+	  var localMediaStream = null;
+
+	  function snapshot() {
+	    if (localMediaStream) {
+	      ctx.drawImage(video, 0, 0);
+	      // "image/webp" works in Chrome.
+	      // Other browsers will fall back to image/png.
+	      document.querySelector('img').src = canvas.toDataURL('image/webp');
+	    }
+	  }
+
+	  video.addEventListener('click', snapshot, false);
+	  
+	  // // Not showing vendor prefixes or code that works cross-browser.
+	  // navigator.getUserMedia({video: true}, function(stream) {
+	  //   video.src = window.URL.createObjectURL(stream);
+	  //   localMediaStream = stream;
+	  // }, errorCallback);
+	</script>
+
+	<script>
+		// <input type="file" accept="video/*;capture=camcorder">
+		function GetClock(){
+			var d=new Date();
+			var nhour=d.getHours(),nmin=d.getMinutes(),ap;
+			if(nhour==0){ap=" AM";nhour=12;}
+			else if(nhour<12){ap=" AM";}
+			else if(nhour==12){ap=" PM";}
+			else if(nhour>12){ap=" PM";nhour-=12;}
+			if(nmin<=9) nmin="0"+nmin;
+
+			document.getElementById('clockbox').innerHTML=""+nhour+":"+nmin+ap+"";
+			// document.getElementById('clockbox2').innerHTML=""+nhour-1+":"+nmin+ap+"";
+			// document.getElementById('clockbox3').innerHTML=""+ap+"";
+		}
+
+		window.onload=function(){
+			GetClock();
+			setInterval(GetClock,5000);
+
+		}
+
+		// $(document).ready(function(){
+  //   		$(".fam").click(function(){
+  //       		$(".tablec").animate({top: '0vw'});
+  //       		$(".tablec").show();
+		//     });
+		// 	$("#history").click(function(){
+	 //    		$(".tablec").animate({top: '160vw'});
+	 //    		$(".tablec").hide(200);
+		//     });
+		// });
+
+// // question //
+// 		function ani()
+// 		{ 
+// 		  $(".top-xxx").toggleClass("opa1");
+// 		  $(".top-mid").toggleClass("opa0");
+// 		  $(".top-top").toggleClass("opa0");
+// 		}
+
+// 		$(document).ready(function()
+// 		{
+// 		  	setInterval ( "ani()", 10000); 
+// 		});
+
+
+// 		function goFullscreen(id) {
+// 		  var element = document.getElementById(id);    
+
+// 		  if (element.mozRequestFullScreen) {
+// 		    element.mozRequestFullScreen();
+// 		    // element.autoplay();
+
+// 		  } else if (element.webkitRequestFullScreen) {
+// 		    element.webkitRequestFullScreen();
+// 		  }  
+// 		}
+
+// 		function autoAddClass(){
+// 		    var next = $(".active").removeClass("active").next();
+// 		    if(next.length)
+// 		        $(next).addClass('active');
+// 		    else
+// 		        $('.slider li:first-child').addClass('active');
+// 		    setTimeout(autoAddClass, 1000);
+// }
+
+		// function getTime(offset)
+  //       {
+  //           var d = new Date();
+  //           localTime = d.getTime();
+  //           localOffset = d.getTimezoneOffset() * 60000;
+
+  //           // obtain UTC time in msec
+  //           utc = localTime + localOffset;
+  //           // create new Date object for different city
+  //           // using supplied offset
+  //           var nd = new Date(utc + (3600000*offset));
+  //           //nd = 3600000 + nd;
+  //           utc = new Date(utc);
+  //           // return time as a string
+  //           $("Asia/Seoul").html(nd.toLocaleString());
+  //           $("#utc").html(utc.toLocaleString());
+
+  //           document.getElementById('clockbox2').innerHTML=""+nhour+":"+nmin+ap+"";
+  //       }
+	</script>
+
+<!-- <div id="clockbox"></div> -->
+
+</body>
+</html>

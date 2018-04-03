@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style/styles2.css" type="text/css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+    <script src="dist/easytimer.min.js"></script>
+    
+</head>
+<body>
+    <!-- <div class ="container"> -->
+        <video id="video" autoplay></video>
+        <!-- <canvas id="canvas"></canvas> -->
+        <div id="quest"><i>Share today's happiest moment with family</i></div>
+        <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div>
+        <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div>
+            <button id="back">CANCEL</button>
+            <button id="take" onclick="move()"><div id="xy"></div></button>
+            <!-- <button onclick="download()">Down</button> -->
+            <button id="flip"><img src="imgs/flip.png" width="36vw;" height="auto"></button>
+        </div>
+<!-- <img src="http://placehold.it/300&text=Your%20image%20here%20..." id="photo"> -->
+
+<script> 
+    
+ //    $(document).ready(function(){
+ //        $( "#take" ).on( "click", function() {
+ //            $(this).trigger( "xxx" ); 
+ //            $( "#countdown" ).show(); 
+ //    });
+ // });
+
+//press take btn
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    }
+
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000);
+
+    // /// rec
+    //   navigator.mediaDevices.getUserMedia(constraints)
+    //   .then(gotMedia)
+    //   .catch(e => { console.error('getUserMedia() failed: ' + e); });
+}
+
+// Record interaction base
+
+const constraints = { "video":{ width: 375, height: 667}, "audio" : true };
+
+var theStream;
+var theRecorder;
+var recordedChunks = [];
+
+// Display cam first
+
+function startFunction() {
+  navigator.mediaDevices.getUserMedia(constraints)
+      .then(gotMedia)
+      .catch(e => { console.error('getUserMedia() failed: ' + e); });
+}
+
+startFunction();
+
+function gotMedia(stream) {
+  theStream = stream;
+  var video = document.querySelector('video');
+  video.src = URL.createObjectURL(stream);
+
+  // HTMLMediaElement.srcObject 
+  video.play();
+  videoPlaying  = true;
+
+  try {
+    recorder = new MediaRecorder(stream, {mimeType : "video/webm"});
+
+  } catch (e) {
+    console.error('Exception while creating MediaRecorder: ' + e);
+    return;
+  }
+  
+  theRecorder = recorder;
+  recorder.ondataavailable = 
+      (event) => { recordedChunks.push(event.data); };
+  recorder.start(20);
+}
+
+// From @samdutton's "Record Audio and Video with MediaRecorder"
+// https://developers.google.com/web/updates/2016/01/mediarecorder
+function download() {
+  theRecorder.stop();
+  theStream.getTracks().forEach(track => { track.stop(); });
+
+  var blob = new Blob(recordedChunks, {type: "video/webm"});
+  var url =  URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  document.body.appendChild(a);
+  a.style = "display: none";
+  a.href = url;
+  a.download = 'test.mp4';
+  a.click();
+  // setTimeout() here is needed for Firefox.
+  setTimeout(function() { URL.revokeObjectURL(url); }, 20); 
+}
+
+
+    // (function(){
+    //     function userMedia(){
+    //         return navigator.getUserMedia = navigator.getUserMedia ||
+    //         navigator.webkitGetUserMedia ||
+    //         navigator.mozGetUserMedia ||
+    //         navigator.msGetUserMedia || null;
+    //     }
+
+    //     // Now we can use it
+    //     if( userMedia() ){
+    //         var videoPlaying = false;
+    //         var constraints = {
+    //             video: {
+    //             width: 375, height: 667
+    //         },
+    //         audio: true
+    //         };
+    //         var video = document.getElementById('live');
+
+    //         var media = navigator.getUserMedia(constraints, function(stream){
+    //             liveStream = stream;
+    //             document.getElementById("live").srcObject = stream;
+    //             // URL Object is different in WebKit
+    //             // var url = window.URL || window.webkitURL;
+
+    //             // // create the url and set the source of the video element
+    //             // video.src = url ? url.createObjectURL(stream) : stream;
+
+    //             // // Start the video
+    //             video.play();
+    //             videoPlaying  = true;
+
+    //         }, function(error){
+    //             console.log("ERROR");
+    //             console.log(error);
+    //         });
+
+    //         // Listen for user click on the "take a photo" button
+    //         document.getElementById('take').addEventListener('click', function(){
+    //             if (videoPlaying){
+    //                 var canvas = document.getElementById('canvas');
+    //                 canvas.width = video.videoWidth;
+    //                 canvas.height = video.videoHeight;
+    //                 canvas.getContext('2d').drawImage(video, 0, 0);
+    //                 var data = canvas.toDataURL('image/webp');
+    //                 // document.getElementById('photo').setAttribute('src', data);
+    //             }
+    //         }, false);
+
+    //     } else {
+    //         console.log("KO");
+    //     }
+    // })();
+</script>
+</body>
+</html>

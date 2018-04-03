@@ -1,0 +1,264 @@
+#canvas {
+    display: :none;
+}
+
+/* Container holding the image and the text */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    top: 0vw;
+}
+
+body {
+    display: block;
+    margin: 0px;
+    background-color: #232128;
+}
+
+#time {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vw;
+    font-weight: 400;
+}
+
+#time2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 4vw;
+    font-weight: 600;
+}
+
+#clockbox {
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vw;
+    font-weight: 100;
+}
+
+#clockbox2 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10vw;
+    font-weight: 100;
+}
+ #clockbox3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 6vw;
+    font-weight: 100;
+}
+
+img {
+    -webkit-filter: blur(1px); /* Safari 6.0 - 9.0 */
+    filter: blur(15px);
+}
+
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 3vw;
+    left: 4vw;
+}
+/* NY time */
+.top-centered {
+    position: absolute;
+    top: 3.8vw;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* seoul text */
+.top-mid {
+    position: absolute;
+    top: 5.9vw;
+    left: 5.7vw;
+    opacity: 1;
+    transition:all 3s;
+}
+
+/* seoul time */
+.top-top {
+    position: absolute;
+    top: 9.5vw;
+    left: 5vw;
+    opacity: 1;
+    transition:all 3s;
+}
+
+.top-top2 {
+    position: absolute;
+    top: 8.4vw;
+    left: 26vw;
+}
+/* daily-q */
+#quest{
+    font-family: 'Roboto', sans-serif;
+    font-size: 5vw;
+    font-weight: 400;
+    text-align: left;
+    line-height: 1.4;
+}
+/* daily-q */
+.top-xxx{
+    transition:all 3s;
+    position: absolute;
+    top: 6.5vw;
+    left: 5vw;
+    opacity: 1;
+    /*padding-right: 20vw;*/
+    /*display: none;*/
+    width: 74vw;
+}
+/*//quest//*/
+.opa1 { 
+    transition:all 2s;
+    position: absolute;
+    top: 6.5vw;
+    left: 5vw;
+    opacity: 1;
+    width: 74vw; 
+}
+/*//time//*/
+.opa0 {
+    transition:all 2s;
+    position: absolute;
+    opacity: 0;
+}
+/*heart*/
+.top-x {
+    position: absolute;
+    top: 8vw;
+    right: 6vw;
+}
+
+.top-x2 {
+    width: 11vw;
+    /*height: 30px;*/
+    position: absolute;
+    top: 8vw;
+    right: 5.6vw;
+    -webkit-filter: blur(0px); /* Safari 6.0 - 9.0 */
+    filter: blur(0px);
+}
+.tablec {
+    top: 160vw;
+    display: none; 
+}
+
+table {
+    border-collapse: collapse;
+    position: absolute; 
+    width: 100%; 
+    background-color: #232128; 
+}
+th {
+    height: 8vw;
+}
+tr {
+    border: 0.1px solid white;
+    border-left: 0;
+    border-right: 0;
+
+    /*height: 20vw;*/
+}
+
+td {
+    border: 0.1px solid white;
+    border-left: 0;
+    border-right: 0;
+    height: 65vw;
+}
+.btn-group1{
+    /*height: 32.5vw;*/
+    /*bottom: 0vw;*/
+}
+
+#history {
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 4.5vw;
+    font-weight: 500;
+    text-align: left;
+    /*text-indent: 10px;
+    /*line-height: 1;*/
+    /*vertical-align: text-top;*/
+/*    padding-top: 2.3vw;
+    padding-left: 2.3vw;*/
+    padding: 4.5vw 3.5vw 3vw 3.5vw;
+}
+
+#answer1 {
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 3.4vw;
+    font-weight: 500;
+    text-align: left;
+    position: relative;
+    /*text-indent: 10px;*/
+    line-height: 1.2;
+    vertical-align: text-top;
+    padding-top: 2.5vw;
+    padding-left: 3vw;
+}
+
+#btn-5a {
+    width: 22vw;
+    height: 28vw;
+    position: relative;
+    top: 3vw;
+    left: 6vw;
+}
+
+#btn-5b {
+    width: 22vw;
+    height: 28vw;
+    position: relative;
+    top: 3vw;
+    left: 11.5vw;
+}
+
+#btn-5c {
+    width: 22vw;
+    height: 28vw;
+    position: relative;
+    top: 3vw;
+    left: 17vw;
+}
+
+#date {
+    font-family: 'Roboto Mono', sans-serif;
+    font-size: 2.8vw;
+    color: gray;
+    font-weight: 300;
+    text-align: left;
+    /*padding-left: 3vw;*/
+    padding-top: 1vw;
+    padding-left: 0vw;
+    position: relative;
+    /*vertical-align: text-bottom;*/
+}
+
+#video1a {
+    position: relative;
+    top: 2.5vw;  
+    padding-left: 1vw;
+    autoplay: autoplay;
+    /*padding-right: 1vw; */
+}
+
+#video1b {
+    position: relative;
+    top: 2.5vw;  
+    padding-left: 1vw;
+    /*padding-right: 1vw; */
+}
+
+#video1c {
+    position: relative;
+    top: 2.5vw; 
+    padding-left: 1vw;
+    /*padding-right: 1vw; */
+}
+
+#video2 {
+    height: auto;
+    width: auto;
+    min-width: 100%;
+    min-height: 100%;
+}
+
