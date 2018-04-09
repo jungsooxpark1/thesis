@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style/styles2.css" type="text/css"> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+    <script src="dist/easytimer.min.js"></script>
+      <meta name="mobile-web-app-capable" content="yes">
+
+     <script src="js/main.js"></script>
+</head>
+<body>
+    <!-- <div class ="container"> -->
+
+  <div class="select">
+    <label for="audioSource">Audio source: </label><select id="audioSource"></select>
+  </div>
+
+  <div class="select">
+    <label for="videoSource">Video source: </label><select id="videoSource"></select>
+  </div>
+        <video id="video" autoplay></video>
+        <!-- <canvas id="canvas"></canvas> -->
+        <div id="quest"><i>Share today's happiest moment with family</i></div>
+        <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div>
+        <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div>
+            <button id="back">CANCEL</button>
+            <button id="take" onclick="move()"><div id="xy"></div></button>
+            <!-- <button onclick="download()">Down</button> -->
+            <button id="flip"><img src="imgs/flip.png" width="36vw;" height="auto"></button>
+        </div>
+<!-- <img src="http://placehold.it/300&text=Your%20image%20here%20..." id="photo"> -->
+
+<script> 
+    
+ //    $(document).ready(function(){
+ //        $( "#take" ).on( "click", function() {
+ //            $(this).trigger( "xxx" ); 
+ //            $( "#countdown" ).show(); 
+ //    });
+ // });
+
+//press take btn
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    }
+
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000);
+
+    // /// rec
+    //   navigator.mediaDevices.getUserMedia(constraints)
+    //   .then(gotMedia)
+    //   .catch(e => { console.error('getUserMedia() failed: ' + e); });
+}
+
+// // Record interaction base
+//    var errorCallback = function(e) {
+//     console.log('Reeeejected!', e);
+//   };
+
+//   // Not showing vendor prefixes.
+//   navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
+//     var video = document.querySelector('video');
+//     video.src = window.URL.createObjectURL(localMediaStream);
+
+//     // Note: onloadedmetadata doesn't fire in Chrome when using it with getUserMedia.
+//     // See crbug.com/110938.
+//     video.onloadedmetadata = function(e) {
+//       // Ready to go. Do some stuff.
+//     };
+//   }, errorCallback);
+
+
+</script>
+</body>
+</html>

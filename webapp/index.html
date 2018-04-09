@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Record a video from your webcam and upload it directly to Youtube.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Record</title> 
+	<meta name="mobile-web-app-capable" content="yes"> 
+	<meta name="apple-mobile-web-app-capable" content="yes"> 
+	</head>
+
+	<body unresolved="">
+		<!-- <span id="browser-sync-binding"></span>
+		<wb-cam-app id="app"></wb-cam-app> -->
+			<video id="player" controls autoplay></video>
+			<!-- <a id="download">Download -->
+			<button id="stop">Stop
+			<button id="capture">Capture</button>
+			<canvas id="snapshot" width=320 height=240></canvas>
+			<script>
+			  var player = document.getElementById('player'); 
+			  var snapshotCanvas = document.getElementById('snapshot');
+			  var captureButton = document.getElementById('capture');
+				var videoTracks;
+			  var handleSuccess = function(stream) {
+			    // Attach the video stream to the video element and autoplay.
+			    player.srcObject = stream;
+			    	videoTracks = stream.getVideoTracks();
+			  };
+
+			  captureButton.addEventListener('click', function() {
+			    var context = snapshot.getContext('2d');
+			    // Draw the video frame to the canvas.
+			    context.drawImage(player, 0, 0, snapshotCanvas.width, 
+			        snapshotCanvas.height);
+			    // Stop all video streams.
+    				videoTracks.forEach(function(track) {track.stop()});
+			  });
+
+			  navigator.mediaDevices.getUserMedia({video: true})
+			      .then(handleSuccess);
+
+			  // let shouldStop = false;
+			  // let stopped = false;
+			  // const downloadLink = document.getElementById('download');
+			  // const stopButton = document.getElementById('stop');
+
+			  // stopButton.addEventListener('click', function() {
+			  //   shouldStop = true;
+			  // })
+
+			  // var handleSuccess = function(stream) {
+			  //   const options = {mimeType: 'video/webm'};
+			  //   const recordedChunks = [];
+			  //   const mediaRecorder = new MediaRecorder(stream, options);
+
+			  //   mediaRecorder.addEventListener('dataavailable', function(e) {
+			  //     if (e.data.size > 0) {
+			  //       recordedChunks.push(e.data);
+			  //     }
+
+			  //     if(shouldStop === true && stopped === false) {
+			  //       mediaRecorder.stop();
+			  //       stopped = true;
+			  //     }
+			  //   });
+
+			  //   mediaRecorder.addEventListener('stop', function() {
+			  //     downloadLink.href = URL.createObjectURL(new Blob(recordedChunks));
+			  //     downloadLink.download = 'acetest.webm';
+			  //   });
+
+			  //   mediaRecorder.start();
+			  // };
+
+			  // navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+			  //     .then(handleSuccess);
+
+			</script>
+	</body>
+		</html>

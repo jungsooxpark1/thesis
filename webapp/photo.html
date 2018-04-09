@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
     <script src="dist/easytimer.min.js"></script>
+    <!-- <meta name="mobile-web-app-capable" content="yes"> -->
     
 </head>
 <body>
@@ -71,8 +72,8 @@ function move() {
 
 // Record interaction base
 
-const constraints = { "video":{ width: 375, height: 667}, "audio" : true };
-
+const constraints = { "video": true, "audio" : true };
+// const constraints = { "video":{ width: 375, height: 667}, "audio" : true };
 var theStream;
 var theRecorder;
 var recordedChunks = [];
