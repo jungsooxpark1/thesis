@@ -182,6 +182,17 @@ div#xy {
   border-radius: 50%;
 }
 
+div#yz {
+  position: absolute; 
+  width: 6vw;
+  height: 6vw;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*border-color: #E40000;*/
+  background-color: #fff;
+  border-radius: 0%;
+}
+
 button#flip {
   position: absolute;
   background-color: transparent;
@@ -192,7 +203,7 @@ button#flip {
 
 
 button:active, button:hover {
-    background: #000;
+    /*background: #000;*/
     color: #fff;
 }
 

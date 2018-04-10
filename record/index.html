@@ -1,0 +1,288 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>XXX</title>
+  <!-- <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <link rel="stylesheet" href="css/styles.css" type="text/css"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+ 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+  <script src="dist/easytimer.min.js"></script>
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+ 
+    <video id="gum" autoplay></video>
+    <div id="quest"><i>Share today's happiest moment with family</i></div>
+        <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div>
+        <!-- /*<div id="countdown" style="display:none"/>0:20</div>*/ -->
+         <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div>
+            <!-- <button id="back" onclick="window.open('', '_self', ''); window.close();">CANCEL</button> -->
+            <button id="back">CANCEL</button>
+           <!--  <button id="record"><div id="ro" onclick="move()"></div> </button> -->
+            <button id="record"><div id="ad" onclick="move()"><img src="../imgs/rec.png" id="ro" width="40vw" height="auto"/><img src="../imgs/pause.png" id="ro" width="40vw" height="auto" style="display:none"/></div> </button>
+             <!-- <button id="record" onclick="move()" disabled><div class="xy"> </div></button> -->
+            <!-- <button onclick="download()">Down</button> -->
+            <button id="flip"><img src="imgs/flip.png" width="36vw" height="auto"></button>
+            <button id="download" disabled style="display:none"/>   </button>
+            <!-- <script src="js/main.js"></script> -->
+        </div> 
+  <script> 
+
+// 'use strict';
+
+/* globals MediaRecorder */
+
+var mediaSource = new MediaSource();
+mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
+var mediaRecorder;
+var recordedBlobs;
+var sourceBuffer;
+var recorded;
+var gumVideo = document.querySelector('video#gum');
+var recordedVideo = document.querySelector('video#gum');
+
+var recordButton = document.querySelector('button#record'); 
+var downloadButton = document.querySelector('button#download');
+recordButton.onclick = toggleRecording; 
+downloadButton.onclick = download;
+
+// window.isSecureContext could be used for Chrome
+var isSecureOrigin = location.protocol === 'https:' ||
+location.hostname === 'localhost';
+if (!isSecureOrigin) {
+  alert('getUserMedia() must be run from a secure origin: HTTPS or localhost.' +
+    '\n\nChanging protocol to HTTPS');
+  location.protocol = 'HTTPS';
+}
+
+
+// $(document).ready(function(){
+//   $("#ad").click(function() {
+//       // $('#ro').toggle();
+//       $('#bo').show();
+//   }); 
+// });
+
+// $(document).ready(function(){
+//   $( "#ro" ).click(function() 
+//     $(this).attr('id', 'yz');
+//     // $(this).trigger( "xxx" ); 
+//     // $( "img#rrr" ).show(); 
+//     // $( "#rrr" ).toggle();
+//     });
+//  });
+
+ // function toggle_visibility() {
+ //       var e = document.getElementById("ro");
+ //       var g = document.getElementById("yz");
+ //       if(e.style.display == 'block'){
+ //          e.style.display = 'none';
+ //          g.style.display = 'block';}
+ //       else {
+ //          e.style.display = 'block';
+ //          g.style.display = 'none';
+ //        }
+ //       } 
+
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200); 
+    // $('#rrr').toggle();
+    // var e = document.getElementById("ro");
+    // e.id = "yz";
+    
+    // function toggle_visibility() {
+    //    var e = document.getElementById("ro");
+    //     $('#ro').toggle();
+    //   }
+    //    if(e.style.display == 'block')
+    //       e.style.display = 'none';
+    //    else
+    //       e.style.display = 'block';
+    // }
+    // toggle_visibility();
+
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    }
+
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000);
+}
+    //   navigator.mediaDevices.getUserMedia(constraints)
+    //   .then(gotMedia)
+    //   .catch(e => { console.error('getUserMedia() failed: ' + e); });
+ 
+// var theStream;
+// var theRecorder;
+// var recordedChunks = [];
+
+var constraints = {
+  // audio: true,
+  // video: true
+  video: {
+    width: 375, height: 667
+    },
+    audio: true
+};
+
+function handleSuccess(stream) {
+  recordButton.disabled = false;
+  // console.log('getUserMedia() got stream: ', stream);
+  window.stream = stream;
+  gumVideo.srcObject = stream;
+}
+
+function handleError(error) {
+  console.log('navigator.getUserMedia error: ', error);
+}
+
+navigator.mediaDevices.getUserMedia(constraints).
+    then(handleSuccess).catch(handleError);
+
+function handleSourceOpen(event) {
+  console.log('MediaSource opened');
+  sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+  console.log('Source buffer: ', sourceBuffer);
+}
+
+recordedVideo.addEventListener('error', function(ev) {
+  console.error('MediaRecording.recordedMedia.error()');
+  alert('Your browser can not play\n\n' + recordedVideo.src
+    + '\n\n media clip. event: ' + JSON.stringify(ev));
+}, true);
+
+function handleDataAvailable(event) {
+  if (event.data && event.data.size > 0) {
+    recordedBlobs.push(event.data);
+  }
+}
+
+function handleStop(event) {
+  console.log('Recorder stopped: ', event);
+}
+
+function toggleRecording() {
+  if (recordButton.textContent === ' ') {
+    startRecording();
+  } else {
+    stopRecording();
+    recordButton.textContent = ' '; 
+    downloadButton.disabled = false;
+  }
+}
+
+// function toggleRecording() {
+
+//   // $(document).ready(function(){
+//   //   $("#record").click(function(){
+//       if (recordButton.disabled === false) {
+//           startRecording(); 
+//           // recordButton.disabled = true;
+//           console.log('ny');
+           
+//        } else{
+//           console.log('nj');
+//           stopRecording(); 
+//           // recordButton.onclick = true;
+//           downloadButton.disabled = false;
+//           // recordButton.disabled = false; 
+//     };
+// // });
+// // });
+// }
+
+//   // if (recordButton.textContent === ' ') {
+//   if (recordButton.onclick === true) { 
+//     startRecording();
+//   } else {
+//     stopRecording();
+//     // recordButton.textContent = ' '; 
+//     recordButton.onclick = true;
+//     downloadButton.disabled = false;
+//   }
+// }
+
+
+function startRecording() {
+  recordedBlobs = [];
+  var options = {mimeType: 'video/webm;codecs=vp9'};
+  if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+    console.log(options.mimeType + ' is not Supported');
+    options = {mimeType: 'video/webm;codecs=vp8'};
+    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+      console.log(options.mimeType + ' is not Supported');
+      options = {mimeType: 'video/webm'};
+      if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+        console.log(options.mimeType + ' is not Supported');
+        options = {mimeType: ''};
+      }
+    }
+  }
+  try {
+    mediaRecorder = new MediaRecorder(window.stream, options);
+  } catch (e) {
+    console.error('Exception while creating MediaRecorder: ' + e);
+    alert('Exception while creating MediaRecorder: '
+      + e + '. mimeType: ' + options.mimeType);
+    return;
+  }
+  console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+  recordButton.textContent = '  '; 
+  downloadButton.disabled = true;
+  mediaRecorder.onstop = handleStop;
+  mediaRecorder.ondataavailable = handleDataAvailable;
+  mediaRecorder.start(10); // collect 10ms of data
+  console.log('MediaRecorder started', mediaRecorder);
+}
+
+function stopRecording() {
+  mediaRecorder.stop();
+  console.log('Recorded Blobs: ', recordedBlobs);
+  recordedVideo.controls = true;
+} 
+
+function download() {
+  var blob = new Blob(recordedBlobs, {type: 'video/webm'});
+  var url = window.URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.style.display = 'none';
+  a.href = url;
+  a.download = 'test.mp4';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }, 100);
+}
+
+  </script>
+</body>
+</html>

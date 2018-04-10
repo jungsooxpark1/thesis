@@ -44,6 +44,7 @@ function move() {
     var elem = document.getElementById("myBar"); 
     var width = 1;
     var id = setInterval(frame, 200);
+    
     function frame() {
         if (width >= 100) {
             clearInterval(id);
@@ -73,7 +74,6 @@ function move() {
 // Record interaction base
 
 // const constraints = { "video": true, "audio" : true };
-
 var constraints = {
                 video: {
                 width: 375, height: 667
