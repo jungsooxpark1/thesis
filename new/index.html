@@ -27,7 +27,7 @@
   <button id="btn-stop" disabled>STOP</button>
   <button id="btn-pause" disabled>PAUSE</button> -->
 
-<div id="quest"><i>Share today's happiest moment with family</i></div>
+  <div id="quest"><i>Share today's happiest moment with family</i></div>
         <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div> 
          <div id="countdown"></div>
         <div id="bg">
@@ -35,19 +35,21 @@
             <button id="btn-stop">CANCEL</button> 
 
             <div class="center">
-              <div id="btn-rec" >
-                <img src="../imgs/rec.png" width="40vw" height="auto" >
-              </div>
-              <div id="btn-pause" disabled>
-                <img src="../imgs/pause.png" width="40vw" height="auto" >
-              </div>
-              <div id="btn-resume" >
-                <img src="../imgs/rec.png" width="40vw" height="auto" >
+              <div id="circle">
+                <div id="btn-rec">
+                  <img src="../imgs/rec.png" width="44vw" height="auto" >
+                </div>
+                <div id="btn-pause" disabled>
+                  <img src="../imgs/pause.png" width="44vw" height="auto" >
+                </div>
+                <div id="btn-resume" disabled>
+                  <img src="../imgs/rec.png" width="44vw" height="auto" >
+                </div>
               </div>
             </div> 
 
               <div id="btn-play" disabled>
-                <img src="../imgs/play.png" width="40vw" height="auto" style="display:none"/>
+                <img src="../imgs/play.png" width="44vw" height="auto" style="display:none"/>
               </div>
 
               <!-- <div id="btn-stop" onclick="stop1()" disabled>
@@ -76,6 +78,7 @@ function move() {
             elem.style.width = width + '%'; 
         }
     } 
+
     /// timer-0:20
     var timeleft = 20;
     var downloadTimer = setInterval(function(){
@@ -87,19 +90,25 @@ function move() {
         clearInterval(downloadTimer);
     },1000); 
 }
+    var constraints = { 
+                    video: { width: 411, height: 731}, 
+                audio: true
+                }; 
+    var video = document.getElementById('video-preview');
+    var videoTracks;
+    var handleSuccess = function(stream) {
+              // Attach the video stream to the video element and autoplay.
+        video.srcObject = stream;
+        videoTracks = stream.getVideoTracks();
+    };
+    // navigator.mediaDevices.getUserMedia(constraints)
+    //             .then(handleSuccess);
 
-var video = document.getElementById('video-preview');
-var videoTracks;
-var handleSuccess = function(stream) {
-          // Attach the video stream to the video element and autoplay.
-    video.srcObject = stream;
-    videoTracks = stream.getVideoTracks();
-};
+// var constraints = { 
+//                 video: { width: 411, height: 731}, 
+//             audio: true
+//             }; 
 
-var constraints = { 
-                video: { width: 411, height: 731}, 
-            audio: true
-            }; 
 var theStream;
 var theRecorder;
 var recordedChunks = [];
