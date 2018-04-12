@@ -32,19 +32,19 @@
             <div id="center">
               <!-- <div id="circle"> -->
                 <div id="btn-rec">
-                  <img src="../imgs/rec.png" width="56vw" height="auto" >
+                  <img src="imgs/rec.png" width="56vw" height="auto" >
                 </div>
                 <div id="btn-pause" disabled>
-                  <img src="../imgs/pause.png" width="56vw" height="auto" >
+                  <img src="imgs/pause.png" width="56vw" height="auto" >
                 </div>
                 <div id="btn-resume" disabled>
-                  <img src="../imgs/rec.png" width="56vw" height="auto" >
+                  <img src="imgs/rec.png" width="56vw" height="auto" >
                 </div>
               <!-- </div> -->
             </div> 
 
               <div id="btn-play" disabled>
-                <img src="../imgs/play.png" width="44vw" height="auto" style="display:none"/>
+                <img src="imgs/play.png" width="44vw" height="auto" style="display:none"/>
               </div>
 
               <!-- <div id="btn-stop" onclick="stop1()" disabled>
@@ -87,7 +87,7 @@ function move() {
 }
 
 var constraints = { 
-                video: { width: 360, height: 560}, 
+                video: { width: 360, height: 640},  
             audio: true
             }; 
 var video = document.getElementById('video-preview');
@@ -161,10 +161,16 @@ function stopRecordingCallback() {
 
 // record starts now - rec:disable / pause:able / timecount:start / 
 
-document.getElementById('btn-rec').onclick = function() {
-    alert('Unable ');
-    this.disabled = true;
-    this.style = "display: none";
+document.getElementById('center').onclick = function() {
+    // alert('Unable ');
+    document.getElementById('btn-rec').disabled = true;
+    document.getElementById('btn-rec').style = "display: none";
+
+    document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-pause').style.display = 'block';
+    // this.disabled = true;
+    // this.style = "display: none";
+
     // document.getElementById('btn-pause').disabled = false; 
     // document.getElementById('btn-pause').style.display = 'block';
     
@@ -184,8 +190,7 @@ document.getElementById('btn-rec').onclick = function() {
         // release camera on stopRecording
         recorder.camera = camera; 
         document.getElementById('btn-stop').disabled = false;
-        document.getElementById('btn-pause').disabled = false;
-        document.getElementById('btn-pause').style.display = 'block';
+         
 
     });
 };
