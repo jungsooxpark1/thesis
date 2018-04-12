@@ -4,11 +4,10 @@
 </style>
 <head>
     <meta charset="utf-8">
-    <title>Demon1</title>
+    <title>Demox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-capable" content="yes"> 
-  <!-- <link rel="stylesheet" href="css/styles.css" type="text/css">  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
  
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -23,29 +22,25 @@
 <body>
   <div id="container">
   <video id="video-preview" autoplay></video>
-  <!-- <button id="btn-rec">START</button>
-  <button id="btn-stop" disabled>STOP</button>
-  <button id="btn-pause" disabled>PAUSE</button> -->
-
   <div id="quest"><i>Share today's happiest moment with family</i></div>
         <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div> 
-         <div id="countdown"></div>
+        <div id="countdown"></div>
         <div id="bg">
             <div id="myProgress"><div id="myBar"></div></div> 
             <button id="btn-stop">CANCEL</button> 
 
             <div id="center">
-              <div id="circle">
+              <!-- <div id="circle"> -->
                 <div id="btn-rec">
-                  <img src="../imgs/rec.png" width="44vw" height="auto" >
+                  <img src="../imgs/rec.png" width="56vw" height="auto" >
                 </div>
                 <div id="btn-pause" disabled>
-                  <img src="../imgs/pause.png" width="44vw" height="auto" >
+                  <img src="../imgs/pause.png" width="56vw" height="auto" >
                 </div>
                 <div id="btn-resume" disabled>
-                  <img src="../imgs/rec.png" width="44vw" height="auto" >
+                  <img src="../imgs/rec.png" width="56vw" height="auto" >
                 </div>
-              </div>
+              <!-- </div> -->
             </div> 
 
               <div id="btn-play" disabled>
@@ -90,65 +85,61 @@ function move() {
         clearInterval(downloadTimer);
     },1000); 
 }
-    var constraints = { 
-                    video: { width: 375, height: 667}, 
-                audio: true
-                }; 
-    var video = document.getElementById('video-preview');
-    var videoTracks;
-    var handleSuccess = function(stream) {
-              // Attach the video stream to the video element and autoplay.
-        video.srcObject = stream;
-        videoTracks = stream.getVideoTracks();
-    };
-    // navigator.mediaDevices.getUserMedia(constraints)
-    //             .then(handleSuccess);
 
-// var constraints = { 
-//                 video: { width: 411, height: 731}, 
-//             audio: true
-//             }; 
+var constraints = { 
+                video: { width: 365, height: 600}, 
+            audio: true
+            }; 
+var video = document.getElementById('video-preview');
+var videoTracks;
+var handleSuccess = function(stream) {
+          // Attach the video stream to the video element and autoplay.
+    video.srcObject = stream;
+    videoTracks = stream.getVideoTracks();
+};
+navigator.mediaDevices.getUserMedia(constraints)
+            .then(handleSuccess);
 
-var theStream;
-var theRecorder;
-var recordedChunks = [];
+// var theStream;
+// var theRecorder;
+// var recordedChunks = [];
 
+// function startFunction() {
+//   navigator.mediaDevices.getUserMedia(constraints)
+//       .then(gotMedia)
+//       .catch(e => { console.error('getUserMedia() failed: ' + e); });
+// }
 
-function startFunction() {
-  navigator.mediaDevices.getUserMedia(constraints)
-      .then(gotMedia)
-      .catch(e => { console.error('getUserMedia() failed: ' + e); });
-}
+// startFunction();
 
-startFunction();
+// function gotMedia(stream) {
+//   theStream = stream;
+//   var video = document.querySelector('video');
+//   // video.src = URL.createObjectURL(stream);
+//   video.srcObject = stream;
+//   // video.src = elem.srcObject = stream
 
-function gotMedia(stream) {
-  theStream = stream;
-  var video = document.querySelector('video');
-  // video.src = URL.createObjectURL(stream);
-  video.srcObject = stream;
-  // video.src = elem.srcObject = stream
+//   // HTMLMediaElement.srcObject 
+//   video.play();
+//   videoPlaying  = true;
 
-  // HTMLMediaElement.srcObject 
-  video.play();
-  videoPlaying  = true;
+//   try {
+//     recorder = new MediaRecorder(stream, {mimeType : "video/webm"});
 
-  try {
-    recorder = new MediaRecorder(stream, {mimeType : "video/webm"});
-
-  } catch (e) {
-    console.error('Exception while creating MediaRecorder: ' + e);
-    return;
-  }
+//   } catch (e) {
+//     console.error('Exception while creating MediaRecorder: ' + e);
+//     return;
+//   }
   
-  theRecorder = recorder;
-  recorder.ondataavailable = 
-      (event) => { recordedChunks.push(event.data); };
-  recorder.start(20);
-}
+//   theRecorder = recorder;
+//   recorder.ondataavailable = 
+//       (event) => { recordedChunks.push(event.data); };
+//   recorder.start(20);
+// }
+var recorder; // globally accessible
 
 function captureCamera(callback) { 
-    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) { 
+    navigator.mediaDevices.getUserMedia(constraints).then(function(camera) { 
         callback(camera);
     }).catch(function(error) {
         alert('Unable to capture your camera. Please check console logs.');
@@ -160,17 +151,18 @@ function stopRecordingCallback() {
     var blob = recorder.getBlob();
     // video.src = URL.createObjectURL(blob);  
     blob.srcObject = blob;
-    video.play();
+    // video.play();
 
     recorder.camera.stop();
     recorder = null;
 }
 
-var recorder; // globally accessible
+
 
 // record starts now - rec:disable / pause:able / timecount:start / 
 
 document.getElementById('btn-rec').onclick = function() {
+    alert('Unable ');
     this.disabled = true;
     this.style = "display: none";
     // document.getElementById('btn-pause').disabled = false; 
