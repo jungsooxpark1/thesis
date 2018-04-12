@@ -4,8 +4,8 @@ html, body {
   position: absolute;
   margin: 0!important;
   padding: 0!important;  
-  height: 667px;
-  width: 375px;
+  height: 731px;
+  width: 441px;
 } 
 
 video#video-preview {
@@ -18,8 +18,8 @@ div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;  
-  height: 667px;
-  width: 375px;
+  height: 731px;
+  width: 441px;
 }
 
 div#quest{

@@ -91,7 +91,7 @@ function move() {
 var video = document.getElementById('video-preview');
 
 var constraints = {
-                video: { width: 375, height: 667 },
+                video: { width: 441, height: 731},
             audio: true
             }; 
 var theStream;
@@ -133,7 +133,7 @@ function gotMedia(stream) {
 }
 
 function captureCamera(callback) {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 441, height: 731 } }).then(function(camera) {
         callback(camera);
     }).catch(function(error) {
         alert('Unable to capture your camera. Please check console logs.');
