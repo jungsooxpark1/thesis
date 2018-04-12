@@ -161,10 +161,16 @@ function stopRecordingCallback() {
 
 // record starts now - rec:disable / pause:able / timecount:start / 
 
-document.getElementById('btn-rec').onclick = function() {
-    alert('Unable ');
-    this.disabled = true;
-    this.style = "display: none";
+document.getElementById('center').onclick = function() {
+    // alert('Unable ');
+    document.getElementById('btn-rec').disabled = true;
+    document.getElementById('btn-rec').style = "display: none";
+
+    document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-pause').style.display = 'block';
+    // this.disabled = true;
+    // this.style = "display: none";
+
     // document.getElementById('btn-pause').disabled = false; 
     // document.getElementById('btn-pause').style.display = 'block';
     
@@ -184,8 +190,7 @@ document.getElementById('btn-rec').onclick = function() {
         // release camera on stopRecording
         recorder.camera = camera; 
         document.getElementById('btn-stop').disabled = false;
-        document.getElementById('btn-pause').disabled = false;
-        document.getElementById('btn-pause').style.display = 'block';
+         
 
     });
 };
