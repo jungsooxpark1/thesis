@@ -2,7 +2,11 @@ html, body {
   position: absolute;
   margin: 0!important; 
   padding: 0!important;
+<<<<<<< HEAD
   height: 580px;
+=======
+  height: 560px;
+>>>>>>> origin/master
   width: 360px; 
   background-color: gray;
 } 
@@ -11,7 +15,11 @@ video#video-preview {
   position: absolute; 
   padding: 0;
   margin: 0;
+<<<<<<< HEAD
   height: 580px;
+=======
+  height: 560px;
+>>>>>>> origin/master
   width: 360px;
 }
 
@@ -19,7 +27,11 @@ div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;
+<<<<<<< HEAD
   height: 580px;
+=======
+  height: 560px;
+>>>>>>> origin/master
   width: 360px;  
 }
 
@@ -50,7 +62,7 @@ div#bg {
     height: 30vw;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    bottom: 0;
+    bottom: 5vw;
 }
 
 div#myProgress {
