@@ -1,41 +1,32 @@
-
-
 html, body {
   position: absolute;
-  margin: 0!important;
-  padding: 0!important;  
-<<<<<<< HEAD
+  margin: 0!important; 
+  padding: 0!important;
   height: 731px;
-  width: 441px;
-=======
-  height: 667px;
-  width: 375px;
->>>>>>> origin/master
+  width: 411px; 
+  background-color: gray;
 } 
 
 video#video-preview {
   position: absolute; 
-    padding: 0;
-    margin: 0; 
+  padding: 0;
+  margin: 0;
+  height: 731px;
+  width: 411px; 
 }
 
 div#container{
   position: absolute;
   margin: 0!important;
-  padding: 0!important;  
-<<<<<<< HEAD
+  padding: 0!important;
   height: 731px;
-  width: 441px;
-=======
-  height: 667px;
-  width: 375px;
->>>>>>> origin/master
+  width: 411px;  
 }
 
 div#quest{
     transition:all 3s;
     position: absolute;
-    top: 6.5vw;
+    top: 6vw;
     left: 5.5vw;
     opacity: 1; 
     width: 74vw;
@@ -49,7 +40,7 @@ div#quest{
 
 div#heart{
     position: absolute;
-    top: 6.5vw;
+    top: 6.8vw;
     right: 5.5vw;
     opacity: 1;
 }
@@ -105,12 +96,28 @@ div#countdown {
 
 div.center { 
   position: absolute;
+  /*border-style: solid;*/
+  /*border-width: 3px;*/
+  /*display: block;*/
+  width: 19vw;
+  height: 19vw;
+  top: 15.5vw;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*border-color: white;*/
+  background-color: transparent;
+  /*border-radius: 50%;*/
+}
+
+
+div#circle { 
+  position: absolute;
   border-style: solid;
   border-width: 3px;
   /*display: block;*/
-  width: 16vw;
-  height: 16vw;
-  top: 15vw;
+  width: 15vw;
+  height: 15vw;
+  top: 9vw;
   left: 50%;
   transform: translate(-50%, -50%);
   border-color: white;
@@ -118,39 +125,41 @@ div.center {
   border-radius: 50%;
 }
 
+
+
 div#btn-rec {
   position: absolute;
 /*  border-style: solid;
   border-width: 3px;*/
   /*display: block;*/
-  width: 24vw;
-  height: auto;
-  top: 2.7vw;
-  left: 2.7vw;
+  width: 11vw;
+  height: 11vw;
+  top: 2.2vw;
+  left: 2.2vw;
 }
  
  div#btn-pause {
   position: absolute;
-  display:none;
+  /*display:none;*/
 /*  border-style: solid;
   border-width: 3px;*/
   /*display: block;*/
-  width: 24vw;
-  height: auto;
-  top: 2.7vw;
-  left: 2.7vw;
+  width: 11vw;
+  height: 11vw;
+  top: 2.2vw;
+  left: 2.2vw;
 }
  
  div#btn-resume {
   position: absolute;
-  display:none;
+  /*display:none;*/
 /*  border-style: solid;
   border-width: 3px;*/
   /*display: block;*/
-  width: 24vw;
-  height: auto;
-  top: 2.7vw;
-  left: 2.7vw;
+  width: 11vw;
+  height: 11vw;
+  top: 2.2vw;
+  left: 2.2vw;
 }
 
 /*div#btn-rec {
@@ -163,10 +172,10 @@ div#btn-pause {
 
 div#btn-play {
   position: absolute; 
-  width: 24vw;
-  height: auto;
-  top: 2.7vw; 
-  left: 90vw;
+  width: 11vw;
+  height: 11vw;
+  top: 2.2vw;
+  left: 2.2vw;
 }
  
 
