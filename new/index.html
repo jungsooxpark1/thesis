@@ -6,15 +6,15 @@
     <meta charset="utf-8">
     <title>Demon1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-
+  <meta name="mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-capable" content="yes"> 
   <!-- <link rel="stylesheet" href="css/styles.css" type="text/css">  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
  
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
-  <script src="dist/easytimer.min.js"></script>
-  <meta name="mobile-web-app-capable" content="yes">
+  <script src="dist/easytimer.min.js"></script> 
   <link rel="stylesheet" href="style/styles.css">
   <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -89,13 +89,15 @@ function move() {
 }
 
 var video = document.getElementById('video-preview');
+var videoTracks;
+var handleSuccess = function(stream) {
+          // Attach the video stream to the video element and autoplay.
+    video.srcObject = stream;
+    videoTracks = stream.getVideoTracks();
+};
 
-var constraints = {
-<<<<<<< HEAD
-                video: { width: 441, height: 731},
-=======
-                video: { width: 375, height: 667 },
->>>>>>> origin/master
+var constraints = { 
+                video: { width: 411, height: 731}, 
             audio: true
             }; 
 var theStream;
@@ -136,12 +138,8 @@ function gotMedia(stream) {
   recorder.start(20);
 }
 
-function captureCamera(callback) {
-<<<<<<< HEAD
-    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 441, height: 731 } }).then(function(camera) {
-=======
-    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) {
->>>>>>> origin/master
+function captureCamera(callback) { 
+    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 411, height: 731 } }).then(function(camera) { 
         callback(camera);
     }).catch(function(error) {
         alert('Unable to capture your camera. Please check console logs.');

@@ -1,41 +1,32 @@
-
-
 html, body {
   position: absolute;
   margin: 0!important;
-  padding: 0!important;  
-<<<<<<< HEAD
+  padding: 0!important;
   height: 731px;
-  width: 441px;
-=======
-  height: 667px;
-  width: 375px;
->>>>>>> origin/master
+  width: 411px; 
+  background-color: gray;
 } 
 
 video#video-preview {
   position: absolute; 
-    padding: 0;
-    margin: 0; 
+  padding: 0;
+  margin: 0;
+  height: 731px;
+  width: 411px; 
 }
 
 div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;  
-<<<<<<< HEAD
   height: 731px;
-  width: 441px;
-=======
-  height: 667px;
-  width: 375px;
->>>>>>> origin/master
+  width: 411px; 
 }
 
 div#quest{
     transition:all 3s;
     position: absolute;
-    top: 6.5vw;
+    top: 6vw;
     left: 5.5vw;
     opacity: 1; 
     width: 74vw;
@@ -49,7 +40,7 @@ div#quest{
 
 div#heart{
     position: absolute;
-    top: 6.5vw;
+    top: 6.8vw;
     right: 5.5vw;
     opacity: 1;
 }
@@ -108,9 +99,9 @@ div.center {
   border-style: solid;
   border-width: 3px;
   /*display: block;*/
-  width: 16vw;
-  height: 16vw;
-  top: 15vw;
+  width: 14vw;
+  height: 14vw;
+  top: 16vw;
   left: 50%;
   transform: translate(-50%, -50%);
   border-color: white;
