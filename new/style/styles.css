@@ -2,8 +2,8 @@ html, body {
   position: absolute;
   margin: 0!important; 
   padding: 0!important;
-  height: 731px;
-  width: 411px; 
+  height: 667px;
+  width: 375px; 
   background-color: gray;
 } 
 
@@ -11,16 +11,16 @@ video#video-preview {
   position: absolute; 
   padding: 0;
   margin: 0;
-  height: 731px;
-  width: 411px; 
+  height: 667px;
+  width: 375px; 
 }
 
 div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;
-  height: 731px;
-  width: 411px;  
+  height: 667px;
+  width: 375px;  
 }
 
 div#quest{
@@ -94,7 +94,7 @@ div#countdown {
   opacity: 1;
 }
 
-div.center { 
+div#center { 
   position: absolute;
   /*border-style: solid;*/
   /*border-width: 3px;*/
@@ -134,8 +134,8 @@ div#btn-rec {
   /*display: block;*/
   width: 11vw;
   height: 11vw;
-  top: 2.2vw;
-  left: 2.2vw;
+  top: 1.7vw;
+  left: 1.6vw;
 }
  
  div#btn-pause {
@@ -146,8 +146,8 @@ div#btn-rec {
   /*display: block;*/
   width: 11vw;
   height: 11vw;
-  top: 2.2vw;
-  left: 2.2vw;
+  top: 1.7vw;
+  left: 1.6vw;
 }
  
  div#btn-resume {
@@ -158,8 +158,8 @@ div#btn-rec {
   /*display: block;*/
   width: 11vw;
   height: 11vw;
-  top: 2.2vw;
-  left: 2.2vw;
+  top: 1.7vw;
+  left: 1.6vw;
 }
 
 /*div#btn-rec {
@@ -174,8 +174,8 @@ div#btn-play {
   position: absolute; 
   width: 11vw;
   height: 11vw;
-  top: 2.2vw;
-  left: 2.2vw;
+  top: 1.7vw;
+  left: 1.6vw;
 }
  
 
