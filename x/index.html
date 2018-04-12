@@ -18,8 +18,28 @@
         grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr);
     }
 </style>
+<head>
+    <meta charset="utf-8">
+    <title>Demox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+ 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+  <script src="dist/easytimer.min.js"></script> 
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</head>
 
-<video autoplay></video>
+<body>
+  	<div id="container"> 
+		<video autoplay></video>
+	</div>
+</body>
 
 <script>
 const constraints = {
