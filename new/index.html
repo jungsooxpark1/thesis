@@ -91,7 +91,11 @@ function move() {
 var video = document.getElementById('video-preview');
 
 var constraints = {
+<<<<<<< HEAD
                 video: { width: 441, height: 731},
+=======
+                video: { width: 375, height: 667 },
+>>>>>>> origin/master
             audio: true
             }; 
 var theStream;
@@ -133,7 +137,11 @@ function gotMedia(stream) {
 }
 
 function captureCamera(callback) {
+<<<<<<< HEAD
     navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 441, height: 731 } }).then(function(camera) {
+=======
+    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) {
+>>>>>>> origin/master
         callback(camera);
     }).catch(function(error) {
         alert('Unable to capture your camera. Please check console logs.');

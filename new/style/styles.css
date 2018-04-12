@@ -4,8 +4,13 @@ html, body {
   position: absolute;
   margin: 0!important;
   padding: 0!important;  
+<<<<<<< HEAD
   height: 731px;
   width: 441px;
+=======
+  height: 667px;
+  width: 375px;
+>>>>>>> origin/master
 } 
 
 video#video-preview {
@@ -18,8 +23,13 @@ div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;  
+<<<<<<< HEAD
   height: 731px;
   width: 441px;
+=======
+  height: 667px;
+  width: 375px;
+>>>>>>> origin/master
 }
 
 div#quest{
