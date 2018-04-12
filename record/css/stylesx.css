@@ -124,14 +124,16 @@ div.center {
   border-radius: 50%;
 }
 
-div#record, #pause, #play {
+button#record{
   position: absolute;
-/*  border-style: solid;
-  border-width: 3px;*/
+  border-style: solid;
+  border-width: 3px;
   display: block;
   width: 16.4vw;
-  height: auto;
-  top: 8vw;
+  height: 16.4vw;
+  top: 15vw;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
  
 
@@ -147,15 +149,16 @@ div#record, #pause, #play {
 
 button#download { 
   position: absolute;
-  /*border-style: solid;*/
-  border: 0;
+  border-style: solid;
+  border-width: 3px;
+  /*border: 3px;*/
   display: block;
   bottom: 8.8vw;
   right: 11.8vw;
   /*transform: translate(-50%, -50%);*/
   /*border-color: white;*/
   /*background-color: white;*/
-  background-color: rgba(255,255,255,1);
+  background-color: rgba(255,255,255,0.1);
 }
 
 /*#download {

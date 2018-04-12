@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<style>
+</style>
+<head>
+    <meta charset="utf-8">
+    <title>Demon1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <!-- <link rel="stylesheet" href="css/styles.css" type="text/css">  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+ 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+  <script src="dist/easytimer.min.js"></script>
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style/styles.css">
+  <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</head>
+
+<body>
+  <div id="container">
+  <video id="video-preview" autoplay></video>
+  <!-- <button id="btn-rec">START</button>
+  <button id="btn-stop" disabled>STOP</button>
+  <button id="btn-pause" disabled>PAUSE</button> -->
+
+<div id="quest"><i>Share today's happiest moment with family</i></div>
+        <div id="heart"><img src="imgs/5.png" width="44" height="auto"></div> 
+         <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div> 
+            <button id="btn-stop">CANCEL</button> 
+
+            <div class="center">
+              <div id="btn-rec" >
+                <img src="../imgs/rec.png" width="40vw" height="auto" >
+              </div>
+              <div id="btn-pause" disabled>
+                <img src="../imgs/pause.png" width="40vw" height="auto" >
+              </div>
+              <div id="btn-resume" >
+                <img src="../imgs/rec.png" width="40vw" height="auto" >
+              </div>
+            </div> 
+
+              <div id="btn-play" disabled>
+                <img src="../imgs/play.png" width="40vw" height="auto" style="display:none"/>
+              </div>
+
+              <!-- <div id="btn-stop" onclick="stop1()" disabled>
+                <img src="../imgs/stop.png" width="40vw" height="auto" style="display:none"/>
+              </div> --> 
+
+            <button id="flip"><img src="imgs/flip.png" width="36vw" height="auto"></button>
+            <button id="download" disabled style="display:none"/>SEND</button> 
+        </div>  
+</div>
+
+<script>
+
+
+//move-time bar
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    } 
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000); 
+}
+
+var video = document.getElementById('video-preview');
+
+var constraints = {
+                video: { width: 375, height: 667 },
+            audio: true
+            }; 
+var theStream;
+var theRecorder;
+var recordedChunks = [];
+
+
+function startFunction() {
+  navigator.mediaDevices.getUserMedia(constraints)
+      .then(gotMedia)
+      .catch(e => { console.error('getUserMedia() failed: ' + e); });
+}
+
+startFunction();
+
+function gotMedia(stream) {
+  theStream = stream;
+  var video = document.querySelector('video');
+  // video.src = URL.createObjectURL(stream);
+  video.srcObject = stream;
+  // video.src = elem.srcObject = stream
+
+  // HTMLMediaElement.srcObject 
+  video.play();
+  videoPlaying  = true;
+
+  try {
+    recorder = new MediaRecorder(stream, {mimeType : "video/webm"});
+
+  } catch (e) {
+    console.error('Exception while creating MediaRecorder: ' + e);
+    return;
+  }
+  
+  theRecorder = recorder;
+  recorder.ondataavailable = 
+      (event) => { recordedChunks.push(event.data); };
+  recorder.start(20);
+}
+
+function captureCamera(callback) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) {
+        callback(camera);
+    }).catch(function(error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        console.error(error);
+    });
+}
+
+function stopRecordingCallback() {
+    var blob = recorder.getBlob();
+    // video.src = URL.createObjectURL(blob);  
+    blob.srcObject = blob;
+    video.play();
+
+    recorder.camera.stop();
+    recorder = null;
+}
+
+var recorder; // globally accessible
+
+// record starts now - rec:disable / pause:able / timecount:start / 
+
+document.getElementById('btn-rec').onclick = function() {
+    this.disabled = true;
+    this.style = "display: none";
+    // document.getElementById('btn-pause').disabled = false; 
+    // document.getElementById('btn-pause').style.display = 'block';
+    
+    move();
+
+    captureCamera(function(camera) {
+        setSrcObject(camera, video);
+        video.play();
+
+        recorder = RecordRTC(camera, {
+            recorderType: MediaStreamRecorder,
+            mimeType: 'video/webm',
+            timeSlice: 1000 // pass this parameter
+        });
+
+        recorder.startRecording(); 
+        // release camera on stopRecording
+        recorder.camera = camera; 
+        document.getElementById('btn-stop').disabled = false;
+        document.getElementById('btn-pause').disabled = false;
+        document.getElementById('btn-pause').style.display = 'block';
+
+    });
+};
+
+document.getElementById('btn-stop').onclick = function() {
+    this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+};
+
+document.getElementById('btn-pause').onclick = function() {
+    this.disabled = true;
+
+    if(this.disabled === false) {
+        recorder.pauseRecording(); 
+    }
+    else {
+        recorder.resumeRecording(); 
+    }
+
+
+    // if(this.innerHTML === 'Pause Recording') {
+    //     recorder.pauseRecording();
+    //     this.innerHTML = 'Resume Recording';
+    // }
+    // else {
+    //     recorder.resumeRecording();
+    //     this.innerHTML = 'Pause Recording';
+    // }
+
+    setTimeout(function() {
+        document.getElementById('btn-pause').disabled = false;
+    }, 2000);
+};
+
+</script>
+</body>
+
+</html>
