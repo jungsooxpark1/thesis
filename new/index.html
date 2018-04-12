@@ -32,6 +32,7 @@
             <div id="center">
               <!-- <div id="circle"> -->
                 <div id="btn-rec">
+<<<<<<< HEAD
                   <img src="img/rec.png" width="56vw" height="auto" >
                 </div>
                 <div id="btn-pause" disabled>
@@ -39,11 +40,24 @@
                 </div>
                 <div id="btn-resume" disabled>
                   <img src="img/rec.png" width="56vw" height="auto" >
+=======
+                  <img src="imgs/rec.png" width="56vw" height="auto" >
+                </div>
+                <div id="btn-pause" disabled>
+                  <img src="imgs/pause.png" width="56vw" height="auto" >
+                </div>
+                <div id="btn-resume" disabled>
+                  <img src="imgs/rec.png" width="56vw" height="auto" >
+>>>>>>> origin/master
                 </div>
               <!-- </div> -->
 
               <div id="btn-play" disabled>
+<<<<<<< HEAD
                 <img src="img/play.png" width="44vw" height="auto" style="display:none"/>
+=======
+                <img src="imgs/play.png" width="44vw" height="auto" style="display:none"/>
+>>>>>>> origin/master
               </div>
             </div>
               <!-- <div id="btn-stop" onclick="stop1()" disabled>
@@ -106,6 +120,23 @@ function move() {
     },1000); 
 }
 
+<<<<<<< HEAD
+=======
+var constraints = { 
+                video: { width: 360, height: 640},  
+            audio: true
+            }; 
+var video = document.getElementById('video-preview');
+var videoTracks;
+var handleSuccess = function(stream) {
+          // Attach the video stream to the video element and autoplay.
+    video.srcObject = stream;
+    videoTracks = stream.getVideoTracks();
+};
+navigator.mediaDevices.getUserMedia(constraints)
+            .then(handleSuccess);
+
+>>>>>>> origin/master
 // var theStream;
 // var theRecorder;
 // var recordedChunks = [];
