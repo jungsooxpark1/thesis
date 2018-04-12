@@ -23,7 +23,7 @@
   <div id="container">
   <video id="video-preview" autoplay></video>
   <div id="quest"><i>Share today's happiest moment with family</i></div>
-        <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
+  <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
         <div id="countdown"></div>
         <div id="bg">
             <div id="myProgress"><div id="myBar"></div></div> 
@@ -41,12 +41,11 @@
                   <img src="img/rec.png" width="56vw" height="auto" >
                 </div>
               <!-- </div> -->
-            </div> 
 
               <div id="btn-play" disabled>
                 <img src="img/play.png" width="44vw" height="auto" style="display:none"/>
               </div>
-
+            </div>
               <!-- <div id="btn-stop" onclick="stop1()" disabled>
                 <img src="../imgs/stop.png" width="40vw" height="auto" style="display:none"/>
               </div> --> 
@@ -54,9 +53,30 @@
             <button id="flip"><img src="img/flip.png" width="36vw" height="auto"></button>
             <button id="download" disabled style="display:none"/>SEND</button> 
         </div>  
-</div>
+    </div>
 
 <script>
+
+const constraints = {
+  video: true
+};
+
+const video = document.querySelector('video');
+
+function handleSuccess(stream) {
+  video.srcObject = stream;
+}
+
+function handleError(error) {
+  console.error('Reeeejected!', error);
+}
+
+navigator.mediaDevices.getUserMedia(constraints).
+  then(handleSuccess).catch(handleError);
+
+
+
+
 
 
 //move-time bar
@@ -85,20 +105,6 @@ function move() {
         clearInterval(downloadTimer);
     },1000); 
 }
-
-var constraints = { 
-                video: { width: 360, height: 640},  
-            audio: true
-            }; 
-var video = document.getElementById('video-preview');
-var videoTracks;
-var handleSuccess = function(stream) {
-          // Attach the video stream to the video element and autoplay.
-    video.srcObject = stream;
-    videoTracks = stream.getVideoTracks();
-};
-navigator.mediaDevices.getUserMedia(constraints)
-            .then(handleSuccess);
 
 // var theStream;
 // var theRecorder;

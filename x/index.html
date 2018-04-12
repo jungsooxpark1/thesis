@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html>
 <style>
-	html, body, video{
-        margin: 0!important;
-        padding: 0!important;
-        overflow: hidden!important;
-    }
-
-    video {
-        width: 100%;
-    }
-
-    .grid {
-        text-align: center;
-        display: grid;
-        grid-gap: 10px;
-        grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr);
-    }
 </style>
 <head>
     <meta charset="utf-8">
@@ -36,14 +20,47 @@
 </head>
 
 <body>
-  	<div id="container"> 
-		<video autoplay></video>
-	</div>
+  <div id="container">
+  <video id="video-preview" autoplay></video>
+  <div id="quest"><i>Share today's happiest moment with family</i></div>
+  <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
+        <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div> 
+            <button id="btn-stop">CANCEL</button> 
 
+            <div id="center">
+              <!-- <div id="circle"> -->
+                <div id="btn-rec">
+                  <img src="img/rec.png" width="56vw" height="auto" >
+                </div>
+                <div id="btn-pause" disabled>
+                  <img src="img/pause.png" width="56vw" height="auto" >
+                </div>
+                <div id="btn-resume" disabled>
+                  <img src="img/rec.png" width="56vw" height="auto" >
+                </div>
+              <!-- </div> -->
+
+              <div id="btn-play" disabled>
+                <img src="img/play.png" width="44vw" height="auto" style="display:none"/>
+              </div>
+            </div>
+              <!-- <div id="btn-stop" onclick="stop1()" disabled>
+                <img src="../imgs/stop.png" width="40vw" height="auto" style="display:none"/>
+              </div> --> 
+
+            <button id="flip"><img src="img/flip.png" width="36vw" height="auto"></button>
+            <button id="download" disabled style="display:none"/>SEND</button> 
+        </div>  
+    </div>
 
 <script>
+
 const constraints = {
-  video: true
+  video: {
+    width: 360, height: 640
+    }, 
 };
 
 const video = document.querySelector('video');
@@ -58,7 +75,6 @@ function handleError(error) {
 
 navigator.mediaDevices.getUserMedia(constraints).
   then(handleSuccess).catch(handleError);
-
 
 //move-time bar
 function move() {
@@ -86,20 +102,6 @@ function move() {
         clearInterval(downloadTimer);
     },1000); 
 }
-
-var constraints = { 
-                video: { width: 360, height: 640},  
-            audio: true
-            }; 
-var video = document.getElementById('video-preview');
-var videoTracks;
-var handleSuccess = function(stream) {
-          // Attach the video stream to the video element and autoplay.
-    video.srcObject = stream;
-    videoTracks = stream.getVideoTracks();
-};
-navigator.mediaDevices.getUserMedia(constraints)
-            .then(handleSuccess);
 
 // var theStream;
 // var theRecorder;
@@ -225,6 +227,8 @@ document.getElementById('btn-pause').onclick = function() {
         document.getElementById('btn-pause').disabled = false;
     }, 2000);
 };
+
 </script>
 </body>
+
 </html>
