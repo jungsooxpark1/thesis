@@ -2,7 +2,7 @@ html, body {
   position: absolute;
   margin: 0!important; 
   padding: 0!important;
-  height: 600px;
+  height: 560px;
   width: 360px; 
   background-color: gray;
 } 
@@ -11,7 +11,7 @@ video#video-preview {
   position: absolute; 
   padding: 0;
   margin: 0;
-  height: 600px;
+  height: 560px;
   width: 360px;
 }
 
@@ -19,7 +19,7 @@ div#container{
   position: absolute;
   margin: 0!important;
   padding: 0!important;
-  height: 600px;
+  height: 560px;
   width: 360px;  
 }
 
