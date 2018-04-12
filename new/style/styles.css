@@ -1,12 +1,8 @@
 html, body {
   position: absolute;
   margin: 0!important; 
-  padding: 0!important;
-<<<<<<< HEAD
-  height: 580px;
-=======
-  height: 560px;
->>>>>>> origin/master
+  padding: 0!important; 
+  height: 600px; 
   width: 360px; 
   background-color: gray;
 } 
@@ -14,24 +10,16 @@ html, body {
 video#video-preview {
   position: absolute; 
   padding: 0;
-  margin: 0;
-<<<<<<< HEAD
-  height: 580px;
-=======
-  height: 560px;
->>>>>>> origin/master
+  margin: 0; 
+  height: 600px; 
   width: 360px;
 }
 
 div#container{
   position: absolute;
   margin: 0!important;
-  padding: 0!important;
-<<<<<<< HEAD
-  height: 580px;
-=======
-  height: 560px;
->>>>>>> origin/master
+  padding: 0!important; 
+  height: 600px; 
   width: 360px;  
 }
 
