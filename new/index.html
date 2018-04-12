@@ -34,7 +34,7 @@
             <div id="myProgress"><div id="myBar"></div></div> 
             <button id="btn-stop">CANCEL</button> 
 
-            <div class="center">
+            <div id="center">
               <div id="circle">
                 <div id="btn-rec">
                   <img src="../imgs/rec.png" width="44vw" height="auto" >
@@ -91,7 +91,7 @@ function move() {
     },1000); 
 }
     var constraints = { 
-                    video: { width: 411, height: 731}, 
+                    video: { width: 375, height: 667}, 
                 audio: true
                 }; 
     var video = document.getElementById('video-preview');
@@ -148,7 +148,7 @@ function gotMedia(stream) {
 }
 
 function captureCamera(callback) { 
-    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 411, height: 731 } }).then(function(camera) { 
+    navigator.mediaDevices.getUserMedia({ audio: true, video: { width: 375, height: 667 } }).then(function(camera) { 
         callback(camera);
     }).catch(function(error) {
         alert('Unable to capture your camera. Please check console logs.');
