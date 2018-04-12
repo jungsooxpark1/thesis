@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <style>
-</style>
-<<<<<<< HEAD
+</style> 
 <head>
     <meta charset="utf-8">
     <title>Demox</title>
@@ -22,6 +21,11 @@
 
 <body>
   <div id="container">
+    <!-- <input type="file" accept="video/*;capture=camcorder"> -->
+    <!-- <form action="server.cgi" method="post" enctype="multipart/form-data">
+      <input type="file" name="video" accept="video/*" capture="environment">
+      <input type="submit" value="Upload">
+    </form> -->
   <video id="video-preview" autoplay></video>
   <div id="quest"><i>Share today's happiest moment with family</i></div>
   <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
@@ -58,18 +62,23 @@
 
 <script>
 
+function hasGetUserMedia() {
+  return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia || navigator.msGetUserMedia);
+}
+
+if (hasGetUserMedia()) {
+  // Good to go!
+} else {
+  alert('getUserMedia() is not supported in your browser');
+}
+
+hasGetUserMedia();
+
 const constraints = {
   video: {
     width: 360, height: 640
-    }, 
-=======
-
-<video autoplay></video>
-
-<script>
-const constraints = {
-  video: true
->>>>>>> origin/master
+    }, audio: true 
 };
 
 const video = document.querySelector('video');
@@ -84,7 +93,6 @@ function handleError(error) {
 
 navigator.mediaDevices.getUserMedia(constraints).
   then(handleSuccess).catch(handleError);
-<<<<<<< HEAD
 
 //move-time bar
 function move() {
@@ -241,8 +249,6 @@ document.getElementById('btn-pause').onclick = function() {
 </script>
 </body>
 
-</html>
-=======
+</html> 
 </script>
 </html>
->>>>>>> origin/master
