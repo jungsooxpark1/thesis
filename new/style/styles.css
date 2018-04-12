@@ -13,6 +13,7 @@ video#video-preview {
   margin: 0; 
   height: 640px; 
   width: 360px;
+  top: 0;
 }
 
 div#container{
@@ -20,7 +21,8 @@ div#container{
   margin: 0!important;
   padding: 0!important; 
   height: 640px; 
-  width: 360px;  
+  width: 360px;
+  top: 0;  
 }
 
 div#quest{
