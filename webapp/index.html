@@ -9,33 +9,24 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"> 
 	</head>
 
-	<body unresolved="">
-		<!-- <span id="browser-sync-binding"></span>
-		<wb-cam-app id="app"></wb-cam-app> -->
-			<video id="player" controls autoplay></video>
-			<!-- <a id="download">Download -->
-			<button id="stop">Stop
-			<button id="capture">Capture</button>
-			<canvas id="snapshot" width=320 height=240></canvas>
+	<body unresolved=""> 
+			<video id="video-preview" autoplay></video> 
 			<script>
-			  var player = document.getElementById('player'); 
-			  var snapshotCanvas = document.getElementById('snapshot');
-			  var captureButton = document.getElementById('capture');
-				var videoTracks;
-			  var handleSuccess = function(stream) {
-			    // Attach the video stream to the video element and autoplay.
+			  var player = document.getElementById('video-preview');  
+			  var videoTracks;
+			  var handleSuccess = function(stream) { 
 			    player.srcObject = stream;
 			    	videoTracks = stream.getVideoTracks();
 			  };
 
-			  captureButton.addEventListener('click', function() {
-			    var context = snapshot.getContext('2d');
-			    // Draw the video frame to the canvas.
-			    context.drawImage(player, 0, 0, snapshotCanvas.width, 
-			        snapshotCanvas.height);
-			    // Stop all video streams.
-    				videoTracks.forEach(function(track) {track.stop()});
-			  });
+			  // captureButton.addEventListener('click', function() {
+			  //   var context = snapshot.getContext('2d');
+			  //   // Draw the video frame to the canvas.
+			  //   context.drawImage(player, 0, 0, snapshotCanvas.width, 
+			  //       snapshotCanvas.height);
+			  //   // Stop all video streams.
+    	// 			videoTracks.forEach(function(track) {track.stop()});
+			  // });
 
 			  navigator.mediaDevices.getUserMedia({video: true})
 			      .then(handleSuccess);
