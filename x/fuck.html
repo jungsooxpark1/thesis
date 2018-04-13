@@ -1,0 +1,94 @@
+<style>
+    html, body, video, canvas {
+        margin: 0!important;
+        padding: 0!important;
+        overflow: hidden!important;
+        width: 100%;
+    }
+</style>
+
+<!-- <title>Preview Blob during Live Recording | RecordRTC</title>
+<h1>Preview Blob during Live Recording</h1>
+
+<br>
+ -->
+<button id="btn-start">Start</button>
+<button id="btn-stop" disabled>Stop</button>
+<button id="btn-pause" disabled>Pause</button>
+
+<videos autoplay></video>
+
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script>
+var video = document.querySelector('video');
+
+function captureCamera(callback) {
+    navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
+        callback(camera);
+    }).catch(function(error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        console.error(error);
+    });
+}
+
+function stopRecordingCallback() {
+    var blob = recorder.getBlob();
+    video.src = URL.createObjectURL(blob);
+    video.play();
+
+    recorder.camera.stop();
+    recorder = null;
+}
+
+var recorder; // globally accessible
+
+document.getElementById('btn-start').onclick = function() {
+// document.getElementById('btn-start-recording').onclick = function() {
+    this.disabled = true;
+    captureCamera(function(camera) {
+        setSrcObject(camera, video);
+        video.play();
+
+        // recorder = RecordRTC(camera, {
+        //     recorderType: MediaStreamRecorder,
+        //     mimeType: 'video/webm',
+        //     timeSlice: 1000 // pass this parameter
+        // });
+
+        recorder = RecordRTC(camera, {
+            type: 'video'
+        });
+
+        recorder.startRecording();
+
+        // release camera on stopRecording
+        recorder.camera = camera;
+
+        document.getElementById('btn-stop').disabled = false;
+        document.getElementById('btn-pause').disabled = false;
+    });
+};
+
+document.getElementById('btn-stop').onclick = function() {
+    this.disabled = true;
+    recorder.stop(stopRecordingCallback);
+};
+
+document.getElementById('btn-pause').onclick = function() {
+    this.disabled = true;
+
+    // if(this.innerHTML === 'Pause') {
+    //     recorder.pauseRecording();
+    //     this.innerHTML = 'Resume';
+    // }
+    // else {
+    //     recorder.resumeRecording();
+    //     this.innerHTML = 'Pause';
+    // }
+
+    setTimeout(function() {
+        document.getElementById('btn-pause').disabled = false;
+    }, 2000);
+};
+</script>

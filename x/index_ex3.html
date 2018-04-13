@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <style>
-    html, body, video, canvas {
-        margin: 0!important;
-        padding: 0!important;
-        overflow: hidden!important;
-        width: 100%;
-    }
-</style>
+</style> 
 <head>
     <meta charset="utf-8">
     <title>Demox</title>
@@ -26,28 +19,51 @@
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
 </head>
-<!-- <title>Preview Blob during Live Recording | RecordRTC</title>
-<h1>Preview Blob during Live Recording</h1> -->
 
-<!-- <br> -->
-<video autoplay></video>
-<div id="quest"><i>Share today's happiest moment with family</i></div>
-<div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
-<div id="countdown"></div>
-<div id=bg>
-  <div id=centar>
-    <div id="btn-start"><img src="img/rec.png" width="56vw" height="auto"></div>
-    <div id="btn-stop"><img src="img/stop.png" width="56vw" height="auto" disabled></div>
-    <div id="btn-pause"><img src="img/pause.png" width="56vw" height="auto" disabled></div>
-  </div>
-</div>
-<!-- 
-<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
-<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+<body>
+  <div id="container">
+    <!-- <input type="file" accept="video/*;capture=camcorder"> -->
+    <!-- <form action="server.cgi" method="post" enctype="multipart/form-data">
+      <input type="file" name="video" accept="video/*" capture="environment">
+      <input type="submit" value="Upload">
+    </form> -->
+  <video id="video-preview" autoplay></video>
+  <div id="quest"><i>Share today's happiest moment with family</i></div>
+  <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
+        <div id="countdown"></div>
+        <div id="bg">
+            <div id="myProgress"><div id="myBar"></div></div> 
+            <div id="btn-stop">CANCEL</div> 
+ 
+            <div id="btn-start">rec</div>
+            <div id="btn-stop" disabled>Stop</div>
+            <div id="btn-pause" disabled>Pause</div>
+
+
+<!--             <div id="center">
+              <div id="circle">
+                <div id="btn-rec" img src="img/rec.png" width="56vw" height="auto" >
+                </div>
+                <div id="btn-pause" img src="img/pause.png" width="56vw" height="auto" disabled>
+                </div>
+                <div id="btn-resume" img src="img/resume.png" width="56vw" height="auto" disabled>
+                </div>
+              </div>
+
+              <div id="btn-play" img src="img/play.png" width="44vw" height="auto" disabled>
+              </div>
+            </div> -->
+              <!-- <div id="btn-stop" onclick="stop1()" disabled>
+                <img src="../imgs/stop.png" width="40vw" height="auto" style="display:none"/>
+              </div> --> 
+
+            <div id="flip"><img src="img/flip.png" width="36vw" height="auto"></div>
+            <div id="download" disabled style="display:none"/>SEND</div> 
+        </div>  
+    </div>
+
 <script>
-// var video = document.querySelector('video');
-
-
+ 
 const constraints = {
   video: {
     width: 360, height: 640
@@ -67,6 +83,34 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).
   then(handleSuccess).catch(handleError);
 
+//move-time bar
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    } 
+
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000); 
+}
+
+// var video = document.querySelector('video');
 
 function captureCamera(callback) {
     navigator.mediaDevices.getUserMedia(constraints).then(function(camera) {
@@ -79,9 +123,8 @@ function captureCamera(callback) {
 
 function stopRecordingCallback() {
     var blob = recorder.getBlob();
-    // video.src = URL.createObjectURL(blob);  
-    blob.srcObject = blob;
-    // video.play();
+    video.src = URL.createObjectURL(blob);
+    video.play();
 
     recorder.camera.stop();
     recorder = null;
@@ -136,23 +179,20 @@ document.getElementById('btn-stop').onclick = function() {
 document.getElementById('btn-pause').onclick = function() {
     this.disabled = true;
 
-  if(document.getElementById('btn-pause').disabled === false) {
-    // if(this.innerHTML === 'Pause') {
-        document.getElementById('btn-pause').disabled = true;
-        document.getElementById('btn-resume').disabled = false;
+    if(this.innerHTML === 'Pause') {
         recorder.pauseRecording();
-        // this.innerHTML = 'Resume';
+        this.innerHTML = 'Resume';
     }
     else {
         recorder.resumeRecording();
-        document.getElementById('btn-pause').disabled = false;
-        document.getElementById('btn-resume').disabled = true;
-        // this.innerHTML = 'Pause';
+        this.innerHTML = 'Pause';
     }
 
     setTimeout(function() {
         document.getElementById('btn-pause').disabled = false;
     }, 2000);
 };
+
 </script>
-</html>
+</body>
+</html>  
