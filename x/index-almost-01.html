@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+    html, body, video, canvas {
+        margin: 0!important;
+        padding: 0!important;
+        overflow: hidden!important;
+        width: 100%;
+    }
+</style>
 <head>
     <meta charset="utf-8">
     <title>Demox</title>
@@ -18,31 +26,25 @@
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
 <div id="container">
-<video id="vid1" autoplay></video>
-<!-- <img src=""> -->
-<!-- <canvas style="display:none;"></canvas> -->
-
-<!-- <video id="vid2" autoplay disabled/></video> -->
+<video autoplay></video>
 <!-- <canvas id="canv" disabled></canvas> -->
 <div id="quest"><i>Share today's happiest moment with family</i></div>
 <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
 <div id="countdown"></div>
-<div id="bg">
+<div id=bg>
   <div id="myProgress"><div id="myBar"></div></div> 
-  <div id="btn-stop" disabled><div id="child1">CANCEL</div></div>
+  <div id="btn-stop" disabled><div id="child1" onclick="stoptimer()">CANCEL</div></div>
   <div id=centar>
     <div id="btn-start"><img src="img/rec.png" width="68vw" height="auto"></div>
     <div id="btn-pause"><img src="img/recx.png" width="68vw" height="auto" disabled/></div>
-    <!-- <div id="btn-resume"><img src="img/resume.png" width="68vw" height="auto" disabled></div>   -->
+    <!-- <div id="btn-resume"><img src="img/resume.png" width="68vw" height="auto" disabled></div> -->  
   </div>
   <div id="flip"><img src="img/flip.png" width="36vw" height="auto"></div>
-  <div id="btn-down" disabled><div id="child2">SEND</div></div> 
+  <div id="download" disabled><div id="child2">SEND</div></div> 
 </div>
 </div>
 <script>
 // var video = document.querySelector('video');
-// var videoPreview = document.getElementById('vid1');
-// var canvasPreview = document.getElementById('vid2');
 
 //BASIC DISPLAY
 const constraints = {
@@ -52,6 +54,7 @@ const constraints = {
 };
 
 const video = document.querySelector('video');
+
 
 function handleSuccess(stream) {
   video.srcObject = stream;
@@ -87,6 +90,19 @@ function stopRecordingCallback() {
     recorder = null;
 }
 
+// function timer() { 
+//     var timeleft = 20;
+
+//     var downloadTimer = setInterval(function(){
+     
+//     timeleft--;
+
+//     if(timeleft<=9) timeleft="0"+timeleft;
+//     document.getElementById("countdown").textContent = timeleft;
+    
+//     if(timeleft <= 0)
+//         clearInterval(downloadTimer);
+//     },1000); 
 
 //timer No.
 var timeleft = 20;
@@ -99,6 +115,7 @@ var id;
 
 function timer1() {
     downloadTimer = setInterval(function(){
+     
     timeleft--;
     // if(timeleft<=9) timeleft="0"+timeleft;
     document.getElementById("countdown").textContent = timeleft;
@@ -121,12 +138,60 @@ function move() {
     } 
 }
 
-// function stoptimer() {
-//     clearInterval(downloadTimer);
-//     document.getElementById("countdown").style.display = "none";
-//     clearInterval(id);
-//     document.getElementById("myBar").style.display = "none";
+function stoptimer() {
+    clearInterval(downloadTimer);
+    document.getElementById("countdown").style.display = "none";
+    clearInterval(id);
+    document.getElementById("myBar").style.display = "none";
+}
+
+ 
+
+
+
+
+
+// //TIME BAR AFTER RECORD
+// function move() {
+//     /// timer-bar
+//     var elem = document.getElementById("myBar"); 
+//     var width = 1;
+//     var id = setInterval(frame, 200);
+//     function frame() {
+//         if (width >= 100) {
+//             clearInterval(id);
+//         } else {
+//             width++;
+//             elem.style.width = width + '%';
+//         }
+//     } 
 // }
+
+
+// function Timer(callback, delay) {
+//     var timerId, start, remaining = delay;
+
+//     this.pause = function() {
+//         window.clearTimeout(timerId);
+//         remaining -= new Date() - start;
+//     };
+
+//     this.resume = function() {
+//         start = new Date();
+//         window.clearTimeout(timerId);
+//         timerId = window.setTimeout(callback, remaining);
+//     };
+
+//     this.resume();
+// }
+
+// var timer = new Timer(function() {
+//     alert("Done!");
+// }, 1000);
+
+// timer.pause();
+// // Do some stuff...
+// timer.resume();
 
 function reloadd() {
     location.reload();
@@ -150,24 +215,9 @@ document.getElementById('btn-start').onclick = function() {
     timer1(); 
     move();
 
-    // setSrcObject(camera, videoPreview);
-    // videoPreview.play();
-
-    recorder.setRecordingDuration(10 * 1000).onRecordingStopped(function() { 
+    recorder.setRecordingDuration(20 * 1000).onRecordingStopped(function() { 
         camera.stop();
-        // camera.play();
-        // document.getElementById('vid2').style.display = "block"; 
-        // document.getElementById('vid2').disabled = false;
-        //replay
-        // var blob = recorder.getBlob();
-        //     blob.srcObject = blob;
 
-        // canvasPreview.src = canvasPreview.srcObject = null;
-        // videoPreview.muted = false;
-        // videoPreview.src = URL.createObjectURL(blob);
-
-        // recorder.play();
-        
         // canvasPreview.src = canvasPreview.srcObject = null;
         // videoPreview.muted = false;
         // videoPreview.src = URL.createObjectURL(blob);
@@ -175,22 +225,60 @@ document.getElementById('btn-start').onclick = function() {
         // camera.play();
     });
     recorder.startRecording();
-    // videoPreview.play();
-    // recorder.play();
+
     // release camera on stopRecording
-    recorder.camera = camera; 
+    recorder.camera = camera;
     document.getElementById('btn-start').style.display = "none";
     document.getElementById('btn-pause').style.display = "block";
     // document.getElementById("btn-pause").src = "img/pause.png";
     document.getElementById('btn-stop').disabled = false;
-    // document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-pause').disabled = false;
     });
 };
 
 document.getElementById('btn-stop').onclick = function() {
     this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
+    // document.getElementById('btn-start').style.display = "block";
+    // document.getElementById('btn-start').disabled = false;
+    // $( "#container" ).load( "index.html" );
     reloadd();
+    // $("#div").load("#btn-start");
+    // document.getElementById('btn-start').reload(true);
+    // document.getElementById('btn-stop').reload(true);
+
 };
+
+// document.getElementById('btn-pause').onclick = function() {
+
+//   if(document.getElementById('btn-pause').disabled === false) { 
+//         this.disabled = true;
+//         recorder.pauseRecording();
+//         // $("#btn-pause").attr("src","img/resume.png");
+//         // document.getElementById("btn-pause").src = "img/resume.png";  
+//     }
+//     // pause disabled > press
+//   else{
+//         this.disabled = false;
+//         recorder.resumeRecording();
+//         // $("#btn-pause").attr("src","img/pause.png");
+//         // document.getElementById("btn-pause").src = "img/pause.png"; 
+//     }
+
+//     setTimeout(function() {
+//         document.getElementById('btn-pause').disabled = false;
+//     }, 2000);
+// }; 
+
+// var toggle = false;
+// function chngimg() {
+//     if (toggle === true) {
+//         document.getElementById('btn-pause').src  = 'img/resume.png';
+//     } else {
+//        document.getElementById('btn-pause').src = 'img/pause.png';
+         
+//     }
+//     toggle = !toggle; 
+// } 
 </script>
 </html>

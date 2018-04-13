@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    html, body, video, canvas {
+        margin: 0!important;
+        padding: 0!important;
+        overflow: hidden!important;
+        width: 100%;
+    }
+</style>
+<head>
+    <meta charset="utf-8">
+    <title>Demox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="mobile-web-app-capable" content="yes"> 
+  <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+ 
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
+  <script src="dist/easytimer.min.js"></script> 
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+
+</head>
+<!-- <title>Preview Blob during Live Recording | RecordRTC</title>
+<h1>Preview Blob during Live Recording</h1> -->
+
+<!-- <br> -->
+<video autoplay></video>
+<div id="quest"><i>Share today's happiest moment with family</i></div>
+<div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
+<div id="countdown"></div>
+<div id=bg>
+  <div id=centar>
+    <div id="btn-start"><img src="img/rec.png" width="56vw" height="auto"></div>
+    <div id="btn-stop"><img src="img/stop.png" width="56vw" height="auto" disabled></div>
+    <div id="btn-pause"><img src="img/pause.png" width="56vw" height="auto" disabled></div>
+  </div>
+</div>
+<!-- 
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
+<script>
+// var video = document.querySelector('video');
+
+
+const constraints = {
+  video: {
+    width: 360, height: 640
+    }, audio: true 
+};
+
+const video = document.querySelector('video');
+
+function handleSuccess(stream) {
+  video.srcObject = stream;
+}
+
+function handleError(error) {
+  console.error('Reeeejected!', error);
+}
+
+navigator.mediaDevices.getUserMedia(constraints).
+  then(handleSuccess).catch(handleError);
+
+
+function captureCamera(callback) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function(camera) {
+        callback(camera);
+    }).catch(function(error) {
+        alert('Unable to capture your camera. Please check console logs.');
+        console.error(error);
+    });
+}
+
+function stopRecordingCallback() {
+    var blob = recorder.getBlob();
+    // video.src = URL.createObjectURL(blob);  
+    blob.srcObject = blob;
+    // video.play();
+
+    recorder.camera.stop();
+    recorder = null;
+}
+
+var recorder; // globally accessible
+
+document.getElementById('btn-start').onclick = function() {
+    this.disabled = true;
+    captureCamera(function(camera) {
+        setSrcObject(camera, video);
+        video.play();
+
+        recorder = RecordRTC(camera, {
+            recorderType: MediaStreamRecorder,
+            mimeType: 'video/webm',
+            timeSlice: 1000 // pass this parameter
+        });
+
+        // (function looper() {
+        //     if(!recorder) {
+        //         return;
+        //     }
+
+        //     var internal = recorder.getInternalRecorder();
+        //     if(internal && internal.getArrayOfBlobs) {
+        //         var blob = new Blob(internal.getArrayOfBlobs(), {
+        //             type: 'video/webm'
+        //         });
+
+        //         document.querySelector('h1').innerHTML = 'Recording length: ' + bytesToSize(blob.size);
+        //     }
+
+        //     setTimeout(looper, 1000);
+        // })();
+
+        recorder.startRecording();
+
+        // release camera on stopRecording
+        recorder.camera = camera;
+
+        document.getElementById('btn-stop').disabled = false;
+        document.getElementById('btn-pause').disabled = false;
+    });
+};
+
+document.getElementById('btn-stop').onclick = function() {
+    this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+};
+
+document.getElementById('btn-pause').onclick = function() {
+    this.disabled = true;
+
+  if(document.getElementById('btn-pause').disabled === false) {
+    // if(this.innerHTML === 'Pause') {
+        document.getElementById('btn-pause').disabled = true;
+        document.getElementById('btn-resume').disabled = false;
+        recorder.pauseRecording();
+        // this.innerHTML = 'Resume';
+    }
+    else {
+        recorder.resumeRecording();
+        document.getElementById('btn-pause').disabled = false;
+        document.getElementById('btn-resume').disabled = true;
+        // this.innerHTML = 'Pause';
+    }
+
+    setTimeout(function() {
+        document.getElementById('btn-pause').disabled = false;
+    }, 2000);
+};
+</script>
+</html>

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 
+<style>
+    html, body, video, canvas {
+        margin: 0!important;
+        padding: 0!important;
+        overflow: hidden!important;
+        width: 100%;
+    }
+</style>
 <head>
     <meta charset="utf-8">
     <title>Demox</title>
@@ -17,32 +25,25 @@
   <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
-<div id="container">
-<video id="vid1" autoplay></video>
-<!-- <img src=""> -->
-<!-- <canvas style="display:none;"></canvas> -->
 
-<!-- <video id="vid2" autoplay disabled/></video> -->
+<video autoplay></video>
 <!-- <canvas id="canv" disabled></canvas> -->
 <div id="quest"><i>Share today's happiest moment with family</i></div>
 <div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
 <div id="countdown"></div>
-<div id="bg">
+<div id=bg>
   <div id="myProgress"><div id="myBar"></div></div> 
   <div id="btn-stop" disabled><div id="child1">CANCEL</div></div>
   <div id=centar>
     <div id="btn-start"><img src="img/rec.png" width="68vw" height="auto"></div>
-    <div id="btn-pause"><img src="img/recx.png" width="68vw" height="auto" disabled/></div>
-    <!-- <div id="btn-resume"><img src="img/resume.png" width="68vw" height="auto" disabled></div>   -->
+    <div id="btn-pause"><img src="img/pause.png" width="68vw" height="auto" onclick="chngimg()" disabled/></div>
+    <!-- <div id="btn-resume"><img src="img/resume.png" width="68vw" height="auto" disabled></div> -->  
   </div>
   <div id="flip"><img src="img/flip.png" width="36vw" height="auto"></div>
-  <div id="btn-down" disabled><div id="child2">SEND</div></div> 
-</div>
+  <div id="download" disabled><div id="child2">SEND</div></div> 
 </div>
 <script>
 // var video = document.querySelector('video');
-// var videoPreview = document.getElementById('vid1');
-// var canvasPreview = document.getElementById('vid2');
 
 //BASIC DISPLAY
 const constraints = {
@@ -64,6 +65,31 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).
   then(handleSuccess).catch(handleError);
 
+//TIME BAR AFTER RECORD
+function move() {
+    /// timer-bar
+    var elem = document.getElementById("myBar"); 
+    var width = 1;
+    var id = setInterval(frame, 200);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
+        }
+    } 
+    /// timer-0:20
+    var timeleft = 20;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    if(timeleft<=9) timeleft="0"+timeleft;
+    document.getElementById("countdown").textContent = "0:"+timeleft;
+    
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000); 
+}
 
 function captureCamera(callback) {
     navigator.mediaDevices.getUserMedia(constraints).then(function(camera) {
@@ -75,10 +101,9 @@ function captureCamera(callback) {
 }
 
 function stopRecordingCallback() {
- //first-do not use
-    // video.src = URL.createObjectURL(blob); 
+     
+    // video.src = URL.createObjectURL(blob);  
 
- //second- use this
     // var blob = recorder.getBlob();
     // blob.srcObject = blob;
 
@@ -87,56 +112,11 @@ function stopRecordingCallback() {
     recorder = null;
 }
 
-
-//timer No.
-var timeleft = 20;
-var downloadTimer;
-
-/// timer-bar
-var elem = document.getElementById("myBar"); 
-var width = 1;
-var id;
-
-function timer1() {
-    downloadTimer = setInterval(function(){
-    timeleft--;
-    // if(timeleft<=9) timeleft="0"+timeleft;
-    document.getElementById("countdown").textContent = timeleft;
-
-    if(timeleft <= 0)
-        clearInterval(downloadTimer); 
-},1000); 
-}
-
-//TIME BAR AFTER RECORD
-function move() {
-    id = setInterval(frame, 200);
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++;
-            elem.style.width = width + '%';
-        }
-    } 
-}
-
-// function stoptimer() {
-//     clearInterval(downloadTimer);
-//     document.getElementById("countdown").style.display = "none";
-//     clearInterval(id);
-//     document.getElementById("myBar").style.display = "none";
-// }
-
-function reloadd() {
-    location.reload();
-}
-
 var recorder; // globally accessible
 
 document.getElementById('btn-start').onclick = function() {
     this.disabled = true;
-
+    move();
     captureCamera(function(camera) {
         setSrcObject(camera, video);
         // video.play();
@@ -147,27 +127,11 @@ document.getElementById('btn-start').onclick = function() {
             timeSlice: 1000 // pass this parameter
         });
 
-    timer1(); 
-    move();
-
-    // setSrcObject(camera, videoPreview);
-    // videoPreview.play();
-
-    recorder.setRecordingDuration(10 * 1000).onRecordingStopped(function() { 
-        camera.stop();
-        // camera.play();
-        // document.getElementById('vid2').style.display = "block"; 
-        // document.getElementById('vid2').disabled = false;
-        //replay
+    recorder.setRecordingDuration(5 * 1000).onRecordingStopped(function() {
         // var blob = recorder.getBlob();
-        //     blob.srcObject = blob;
+        // recorder = null;
+        camera.stop();
 
-        // canvasPreview.src = canvasPreview.srcObject = null;
-        // videoPreview.muted = false;
-        // videoPreview.src = URL.createObjectURL(blob);
-
-        // recorder.play();
-        
         // canvasPreview.src = canvasPreview.srcObject = null;
         // videoPreview.muted = false;
         // videoPreview.src = URL.createObjectURL(blob);
@@ -175,22 +139,64 @@ document.getElementById('btn-start').onclick = function() {
         // camera.play();
     });
     recorder.startRecording();
-    // videoPreview.play();
-    // recorder.play();
+
     // release camera on stopRecording
-    recorder.camera = camera; 
+    recorder.camera = camera;
     document.getElementById('btn-start').style.display = "none";
     document.getElementById('btn-pause').style.display = "block";
     // document.getElementById("btn-pause").src = "img/pause.png";
     document.getElementById('btn-stop').disabled = false;
-    // document.getElementById('btn-pause').disabled = false;
+    document.getElementById('btn-pause').disabled = false;
     });
 };
 
 document.getElementById('btn-stop').onclick = function() {
     this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
-    reloadd();
 };
+
+document.getElementById('btn-pause').onclick = function() {
+    // this.disabled = true;
+// var img = document.getElementById('btn-pause').src;
+    // pause on > press
+  if(document.getElementById('btn-pause').disabled === false) { 
+        this.disabled = true;
+        recorder.pauseRecording();
+        // $("#btn-pause").attr("src","img/resume.png");
+        // document.getElementById("btn-pause").src = "img/resume.png";
+        // document.getElementById('btn-pause').style.display = "none"; 
+        // document.getElementById('btn-resume').style.display = "block";
+        // document.getElementById('btn-pause').disabled = true;
+        // document.getElementById('btn-resume').disabled = false;
+          
+    }
+    // pause disabled > press
+    else{
+        this.disabled = false;
+        recorder.resumeRecording();
+        // $("#btn-pause").attr("src","img/pause.png");
+        // document.getElementById("btn-pause").src = "img/pause.png"; 
+        // document.getElementById('btn-pause').style.display = "block";
+        // document.getElementById('btn-start').style.display = "none";
+        // document.getElementById('btn-resume').style.display = "none";
+        // document.getElementById('btn-pause').disabled = false;
+        // document.getElementById('btn-resume').disabled = true; 
+    }
+
+    setTimeout(function() {
+        document.getElementById('btn-pause').disabled = false;
+    }, 2000);
+}; 
+
+var toggle = false;
+function chngimg() {
+    if (toggle === true) {
+        document.getElementById('btn-pause').src  = 'img/resume.png';
+    } else {
+       document.getElementById('btn-pause').src = 'img/pause.png';
+         
+    }
+    toggle = !toggle; 
+} 
 </script>
 </html>
