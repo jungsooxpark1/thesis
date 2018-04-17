@@ -7,194 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
   <meta name="mobile-web-app-capable" content="yes"> 
   <meta name="apple-mobile-web-app-capable" content="yes"> 
+  <meta name="viewport" content="width=320; user-scalable=no" />
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"> 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
  
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
   <script src="dist/easytimer.min.js"></script> 
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
   <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
-<!-- <div id="container"> -->
-<video id="vid1" autoplay></video>
-<!-- <img src=""> -->
-<!-- <canvas style="display:none;"></canvas> -->
 
-<!-- <video id="vid2" autoplay disabled/></video> -->
-<!-- <canvas id="canv" disabled></canvas> -->
-<div id="quest"><i>Share today's happiest moment with family</i></div>
-<div id="heart"><img src="img/5.png" width="44" height="auto"></div> 
-<div id="countdown"></div>
-<div id="bg">
-  <div id="myProgress"><div id="myBar"></div></div> 
-  <div id="btn-stop" disabled><div id="child1">CANCEL</div></div>
-  <div id=centar>
-    <div id="btn-start"><img src="img/rec.png" width="68vw" height="auto"></div>
-    <div id="btn-pause"><img src="img/recx.png" width="68vw" height="auto" disabled/></div>
-    <!-- <div id="btn-resume"><img src="img/resume.png" width="68vw" height="auto" disabled></div>   -->
-  </div>
-  <div id="flip"><img src="img/flip.png" width="36vw" height="auto"></div>
-  <div id="btn-down" disabled><div id="child2">SEND</div></div> 
-</div>
-<!-- </div> -->
+<!doctype html>
+ 
+  
+ 
+ 
 <script>
-// var video = document.querySelector('video');
-// var videoPreview = document.getElementById('vid1');
-// var canvasPreview = document.getElementById('vid2');
-
-//BASIC DISPLAY
-const constraints = {
-  video: {
-    width: 360, height: 640
-    }, audio: true 
-};
-
-const video = document.querySelector('video');
-
-function handleSuccess(stream) {
-  video.srcObject = stream;
-}
-
-function handleError(error) {
-  console.error('Rejected!', error);
-}
-
-navigator.mediaDevices.getUserMedia(constraints).
-  then(handleSuccess).catch(handleError);
-
-
-function captureCamera(callback) {
-    navigator.mediaDevices.getUserMedia(constraints).then(function(camera) {
-        callback(camera);
-    }).catch(function(error) {
-        alert('Unable to capture your camera. Please check console logs.');
-        console.error(error);
+$(document).ready(function(){
+    if (!('url' in window) && ('webkitURL' in window)) {
+        window.URL = window.webkitURL;
+    }
+ 
+    $('#camcorder').change(function(e){
+        $('#mov').attr('src', URL.createObjectURL(e.target.files[0]));
+        // iOS Safari에서는 autoplay가 안먹히므로 알림
+        alert('동영상 재생버튼을 누르시오');
     });
-}
-
-function stopRecordingCallback() {
- //first-do not use
-    // video.src = URL.createObjectURL(blob); 
-
- //second- use this
-    // var blob = recorder.getBlob();
-    // blob.srcObject = blob;
-
-    // video.play();
-    recorder.camera.stop();
-    recorder = null;
-}
-
-
-//timer No.
-var timeleft = 20;
-var downloadTimer;
-
-/// timer-bar
-var elem = document.getElementById("myBar"); 
-var width = 1;
-var id;
-
-function timer1() {
-    downloadTimer = setInterval(function(){
-    timeleft--;
-    // if(timeleft<=9) timeleft="0"+timeleft;
-    document.getElementById("countdown").textContent = timeleft;
-
-    if(timeleft <= 0)
-        clearInterval(downloadTimer); 
-},1000); 
-}
-
-//TIME BAR AFTER RECORD
-function move() {
-    id = setInterval(frame, 200);
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++;
-            elem.style.width = width + '%';
-        }
-    } 
-}
-
-// function stoptimer() {
-//     clearInterval(downloadTimer);
-//     document.getElementById("countdown").style.display = "none";
-//     clearInterval(id);
-//     document.getElementById("myBar").style.display = "none";
-// }
-
-function reloadd() {
-    location.reload();
-}
-
-// var recorder = RecordRTC(camera, {
-//             recorderType: MediaStreamRecorder,
-//             mimeType: 'video/webm',
-//             timeSlice: 1000 // pass this parameter
-//         });
-
-document.getElementById('btn-start').onclick = function() {
-    this.disabled = true;
-
-    captureCamera(function(camera) {
-        setSrcObject(camera, video);
-        // video.play();
-
-        recorder = RecordRTC(camera, {
-            recorderType: MediaStreamRecorder,
-            mimeType: 'video/webm',
-            timeSlice: 1000 // pass this parameter
-        });
-
-    timer1(); 
-    move();
-
-    // setSrcObject(camera, videoPreview);
-    // videoPreview.play();
-
-    recorder.setRecordingDuration(20 * 1000).onRecordingStopped(function() { 
-        camera.stop();
-        // camera.play();
-        // document.getElementById('vid2').style.display = "block"; 
-        // document.getElementById('vid2').disabled = false;
-        //replay
-        // var blob = recorder.getBlob();
-        //     blob.srcObject = blob;
-
-        // canvasPreview.src = canvasPreview.srcObject = null;
-        // videoPreview.muted = false;
-        // videoPreview.src = URL.createObjectURL(blob);
-
-        // recorder.play();
-        
-        // canvasPreview.src = canvasPreview.srcObject = null;
-        // videoPreview.muted = false;
-        // videoPreview.src = URL.createObjectURL(blob);
-        // videoPreview.play();
-        // camera.play();
-    });
-    recorder.startRecording();
-    // videoPreview.play();
-    // recorder.play();
-    // release camera on stopRecording
-    recorder.camera = camera; 
-    document.getElementById('btn-start').style.display = "none";
-    document.getElementById('btn-pause').style.display = "block";
-    // document.getElementById("btn-pause").src = "img/pause.png";
-    document.getElementById('btn-stop').disabled = false;
-    // document.getElementById('btn-pause').disabled = false;
-    });
-};
-
-document.getElementById('btn-stop').onclick = function() {
-    this.disabled = true;
-    recorder.stopRecording(stopRecordingCallback);
-    reloadd();
-};
+});
 </script>
+</head>
+ 
+ 
+ 
+<input type="file" id="camcorder" name="camcorder" capture="camcorder" accept="video/*" />
+<br />
+ 
+<video id="mov"></video>
+
+  
 </html>
