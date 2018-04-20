@@ -1,3 +1,5 @@
+ 
+
 html, body {
   overflow: hidden!important;
   position: absolute;
@@ -6,39 +8,31 @@ html, body {
   height: 610px; 
   width: 360px; 
   background-color: black;
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 } 
 
-video#vid1 {
+div#bg {
+  margin: 0!important; 
+  padding: 0!important;
+
+}
+ 
+
+canvas {
   position: absolute; 
   padding: 0;
   margin: 0; 
-  height: 610px; 
+  height: 590px; 
   width: 360px;
-  top: 0px;
+  top: 630px;
   display: block;
 }
-
-/*video#vid2 {
-  position: absolute; 
-  padding: 200px;
-  margin: 0; 
-  height: 640px; 
-  width: 360px;
-  top: 0;
-  display: block;
-  /*display: none;*/
-
-
-
-/*#canv {
-  position: absolute; 
-  padding: 0;
-  margin: 0; 
-  height: 550px; 
-  width: 360px;
-  top: 0;
-  display: none;
-}*/
 
 /*div#container{
   position: absolute;
@@ -49,63 +43,163 @@ video#vid1 {
   top: 0;  
 }*/
 
-div#quest{
+.inputfile {
+ 
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+  color: white;
+  height: 550px; 
+  width: 360px;
+}
+
+.inputfile + label {
+    margin: 0!important; 
+    padding: 0!important; 
+    position: absolute;
+    height: 92px; 
+    width: 360px; 
+    /*bottom: 264px;*/
+    top: 250px;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    /*bottom: 120vw;*/
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: rgba(255, 255, 255, 0.87);
+}
+
+div#logo {
+  position: absolute;
+    top: 3.1vw;
+    /*left: 20vw;*/
+    left: 6vw;
+    width: 74vw;
+}
+
+div#title{ 
+    position: absolute;
+    top: 4vw;
+    /*left: 20vw;*/
+    left: 12.5vw;
+    width: 74vw;
+    opacity: 1;
+    text-align: left; 
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.6vw;
+    color: #FF5651; 
+    
+    background-color: transparent;
+}
+div#title2{
+    position: absolute;
+    top: 0vw;
+    color: #727171;
+    left: 18vw;
+}
+
+div#text{
     transition:all 3s;
     position: absolute;
-    top: 6vw;
-    left: 5.5vw;
+    top: 10.4vw;
+    /*left: 19.5vw;*/
+    left: 4.5vw;
     opacity: 1; 
-    width: 74vw;
-    font-family: 'Roboto', sans-serif;
-    font-size: 5vw;
-    font-weight: 400;
+    /*width: 74vw; */
     text-align: left;
-    line-height: 1.4;
+    line-height: 1.4; 
+
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.9vw;
+    color: rgba(0,0,0,1);
+    background-color: transparent;
+}
+
+div#text2{
+    transition:all 3s;
+    position: absolute;
+    bottom: 3.8vw;
+    /*left: 19.5vw;*/
+    left: 4.5vw;
+    opacity: 1; 
+    width: 74vw; 
+    text-align: left;
+    line-height: 1.4; 
+
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.8vw;
+    color: #6E6E6D;
+    background-color: transparent;
+}
+
+#clockbox {
+    font-family: 'Roboto', sans-serif;
+    font-size: 23vw;
+    font-weight: 300;
     color: white;
+    top: 42.5vw;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.top {
+    position: absolute;
+    top: 112vw;
+    left: 5vw;
+    height: 30vw;
+    opacity: 1;
+    transition:all 3s;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+}
+
+#day, #mon, #date, #comma{
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.7vw;
+    font-weight: 400;
+    color: white;
+    text-transform: uppercase;
+    /* left: 50%;
+    transform: translate(-50%, -50%);*/
+}
+
+.sub {
+    position: absolute;
+    top: 59vw;
+    /*top: 65vw;*/
+    left: 5vw;
+    height: 6vw;
+    opacity: 1;
+    transition:all 3s;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: 2px;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
 }
 
 div#heart{
     position: absolute;
-    top: 6.8vw;
-    right: 5.5vw;
+    top: 9vw; 
+    right: 4vw;
     opacity: 1;
 }
 
 div#bg {
     position: absolute;
-    height: 30vw;
+    height: 20vw;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    bottom: 0;
+    top: 0vw;
 }
-
-div#myProgress {
-    position: absolute;
-    left: 0;
-    height: 1vw;
-    width: 100%;
-    background-color: grey;
-    bottom: 29vw;
-}
-
-div#myBar {
-    position: absolute;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background-color: red;
-} 
-
-/*button { 
-    top: 7vw; 
-    font-family: 'Roboto', monospace; 
-    font-size: 1em;
-    border-radius: 50%;
-    width: 16vw;
-    height: 16vw;
-    background-color: transparent; 
-}*/
-
+  
 div#countdown {
   position: absolute; 
   display: block;
@@ -121,31 +215,7 @@ div#countdown {
   /*text-shadow: 1vw;*/
   /*opacity: 1;*/
 }
-
-/*div#center { 
-  position: absolute; 
-  width: 19vw;
-  height: 19vw;
-  top: 15.5vw;
-  left: 50%;
-  transform: translate(-50%, -50%); 
-  background-color: transparent; 
-}*/
-
-
-/*div#circle { 
-  position: absolute;
-  border-style: solid;
-  border-width: 3px; 
-  width: 15vw;
-  height: 15vw;
-  top: 9vw;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-color: white;
-  background-color: transparent;
-  border-radius: 50%;
-}*/
+ 
 
 div#centar { 
   position: absolute;
