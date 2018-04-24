@@ -1,0 +1,82 @@
+
+html, body {
+/*overflow: hidden!important;*/
+position: absolute;
+margin: 0!important; 
+padding: 0!important; 
+height: 610px; 
+width: 360px; 
+background-color: black;
+
+ -webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+
+#mov{
+position: absolute; 
+padding: 0;
+margin: 0; 
+height: auto; 
+width: 360px;
+top: 400px;
+/*display: none; */
+display: block; 
+}
+ 
+.inputfile { 
+width: 0.1px;
+height: 0.1px;
+opacity: 0;
+overflow: hidden;
+position: absolute;
+z-index: -1; 
+}
+
+.inputfile + label {
+  margin: 0!important; 
+  padding: 0!important; 
+  position: absolute;
+  height: 120px; 
+  width: 360px;
+  top: 0;
+  background-color: rgba(0, 255, 255, 1);
+  display: inline-block;
+}
+
+.sendClass { 
+width: 0.1px;
+height: 0.1px;
+opacity: 0;
+overflow: hidden;
+position: absolute;
+z-index: -1; 
+}
+
+
+div#send {
+  display: none;  
+  padding-top: 5.7vw;
+  padding-left: 0.7vw;
+  padding-right: 0.4vw; 
+  position: absolute;
+  height: 11.5vw; 
+  width: 16.5vw;
+  bottom: 1vw;
+
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Roboto', monospace; 
+  font-size: 1em;
+  text-indent: 2.6vw;
+  border-radius: 50%;
+  background-color: none;
+  border-style: solid;
+  border-width: 2px; 
+  border-color: white;
+  color: white;
+}
+}

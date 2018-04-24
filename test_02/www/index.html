@@ -1,0 +1,57 @@
+<!doctype html>
+  
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<meta name="mobile-web-app-capable" content="yes"> 
+<meta name="apple-mobile-web-app-capable" content="yes"> 
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" href="css/styles.css">
+<title>Camera</title> 
+</head>
+ 
+<body>
+
+
+<!-- //basic code -->
+<!-- <form method="post" enctype="multipart/form-data" action="camera.php"> 
+	<input type="file" id="camcorder" name="camcorder" capture="camcorder" accept="video/*" />
+	<br />
+	<input type="submit" value="SEND" />
+</form> -->
+
+<form method="post" enctype="multipart/form-data" action="camera.php"> 
+	<input type="file" id="camcorder" name="camcorder" capture="camcorder" accept="video/*" class="inputfile" />
+	    <label for="camcorder"><div id="text"></div></label> 
+			<video id="mov"></video>
+	<input type="submit" value="SEND" class="sendClass"/>
+	    <label for="submit"><div id="send">SEND</div></label>
+</form>
+<script>
+
+$(document).ready(function(){ 
+    if (!('url' in window) && ('webkitURL' in window)) {
+        // var URL = window.URL || window.webkitURL;
+        window.URL = window.webkitURL;
+    }
+ 
+    $('#camcorder').change(function(e){ 
+        $('#mov').attr('src', URL.createObjectURL(e.target.files[0]));
+		// var fileName = $("e.target.files[0]").val();
+
+		if($("files[0]").val()) { // returns true if the string is not empty
+        	alert("selected");
+	    } else { // no file was selected
+	        // alert("no file selected");
+	        $('#mov').css("top","0px");
+	        $('#send').css("display","block"); 
+	    } 
+    });
+
+});
+
+</script>
+</body>
+</html>

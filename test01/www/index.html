@@ -17,61 +17,69 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,300,400,500,700" rel="stylesheet">
   <script src="dist/easytimer.min.js"></script> 
   <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
 
 <body>
-  <button onclick="myFunction()">hmm</button>
-  <div id="bg"><img src="img/lock1.png" width="360px" height="auto">
+ <!--  <button onclick="myFunction()">hmm</button> -->
+  <div id="bg"><img src="img/lock1.png" width="360px" height="640px" />
   <!-- <form action="server.cgi" method="post" enctype="multipart/form-data"> -->
       <span id="clockbox" class="top"></span>
       <div class="sub"><span id="day"></span><span id="comma">, </span><span id="mon"></span> <span id="date"></span></div>
 
-      <input type="file" id="file" name="camcorder" capture="camcorder" accept="video/*" class="inputfile" />
-      <label for="file"><div id="logo"><img src="img/icon.png" width="auto" height="16"></div><div id="title">One Roof  ·  <div id="title2">today</div></div><div id="text">Share today's happiest moment with family</div><div id="text2">Tap to record a video</div><div id="heart"><img src="img/5.png" width="42" height="auto"></div></label>
-      <canvas></canvas>
+    <form method="post" enctype="multipart/form-data" action="camera.php">
+      <input type="file" id="camcorder" name="camcorder" capture="camcorder" accept="video/*" class="inputfile" />
+      <label for="camcorder"><div id="logo"><img src="img/icon.png" width="auto" height="16"></div><div id="title">One Roof  ·  <div id="title2">today</div></div><div id="text">Share today's happiest moment with family</div><div id="text2">Tap to record a video</div><div id="heart"><img src="img/5.png" width="42" height="auto"></div></label>
+      <video id="mov"></video>
+      <input type="submit" value="SEND" class="sendClass"/>
+      <label for="submit"><div id="send">SEND</div></label>
+    </form>
 
 </div> 
- 
-   <!-- <input type="submit" value="Upload"> --> 
-  <!-- <video id="mov"></video> -->
-  <!-- <canvas></canvas> -->
+  
     
 <script>
-  function myFunction() {
-    confirm("Are you fucking sure?");
-}
-// $(document).ready(function(){
-//     if (!('url' in window) && ('webkitURL' in window)) {
-//         window.URL = window.webkitURL;
-//     }
+$(document).ready(function(){ 
+    if (!('url' in window) && ('webkitURL' in window)) {
+        // var URL = window.URL || window.webkitURL;
+        window.URL = window.webkitURL;
+    }
  
-//     $('#camcorder').change(function(e){
-//         $('#mov').attr('src', URL.createObjectURL(e.target.files[0]));
-//         // iOS Safari에서는 autoplay가 안먹히므로 알림
-//         // alert('동영상 재생버튼을 누르시오');
-//     });
-// });
+    $('#camcorder').change(function(e){ 
+        $('#mov').attr('src', URL.createObjectURL(e.target.files[0]));
+    // var fileName = $("e.target.files[0]").val();
 
-var input = document.querySelector('input[type=file]'); // see Example 4
+    if($("files[0]").val()) { // returns true if the string is not empty
+          alert("selected");
+      } else { // no file was selected
+          // alert("no file selected");
+          $('#mov').css("top","0px");
+          $('#send').css("display","block"); 
+      } 
+    });
 
-input.onchange = function () {
-  var file = input.files[0];
+});
 
-  upload(file);
-  drawOnCanvas(file);   // see Example 6
-  displayAsImage(file); // see Example 7
-};
+// var input = document.querySelector('input[type=file]'); // see Example 4
 
-function upload(file) {
-  var form = new FormData(),
-      xhr = new XMLHttpRequest();
+// input.onchange = function () {
+//   var file = input.files[0];
 
-  form.append('image', file);
-  xhr.open('post', 'server.php', true);
-  xhr.send(form);
-}
+//   upload(file);
+//   drawOnCanvas(file);   // see Example 6
+//   displayAsImage(file); // see Example 7
+// };
+
+// function upload(file) {
+//   var form = new FormData(),
+//       xhr = new XMLHttpRequest();
+
+//   form.append('image', file);
+//   xhr.open('post', 'server.php', true);
+//   xhr.send(form);
+// }
 
 
 function drawOnCanvas(file) {
