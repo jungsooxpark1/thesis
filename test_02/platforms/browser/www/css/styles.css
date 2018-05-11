@@ -1,6 +1,6 @@
 
 html, body {
-/*overflow: hidden!important;*/
+overflow: hidden!important;
 position: absolute;
 margin: 0!important; 
 padding: 0!important; 
@@ -79,4 +79,4 @@ div#send {
   border-color: white;
   color: white;
 }
-}
+
